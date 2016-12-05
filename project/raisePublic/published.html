@@ -1,0 +1,490 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Keywords" content="点点客微伙伴、微信营销、微信代运营、微信定制开发、微网站、微营销">
+    <meta name="Description" content="点点客微伙伴，国内最大的微信公众智能服务平台，点点客微伙伴十大功能体系：。">
+    <title>拼团管理</title>
+    <style>
+        .placeholder {
+            color: #aaa;
+        }
+    </style>
+    <script type="text/javascript" src="http://t.static.dodoca.com/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://t.static.dodoca.com/js/Calendar3.js"></script>
+    <script charset="utf-8" src="http://t.static.dodoca.com/common/kindeditor/kindeditor.js"></script>
+    <script charset="utf-8" src="http://t.static.dodoca.com/common/kindeditor/lang/zh_CN.js"></script>
+    <script charset="utf-8" src="http://t.static.dodoca.com/common/datetime/WdatePicker.js"></script>
+
+    <link href="http://t.static.dodoca.com/css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="http://t.static.dodoca.com/css/global.css?ver=1.1" rel="stylesheet" type="text/css" />
+    <link href="http://t.static.dodoca.com/css/public_tc.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="http://t.static.dodoca.com/images/favicon.ico" type="image/x-icon" />
+    <script type="text/javascript">
+        $(function () {
+            var window_height = window.screen.height;
+            if (window_height == 768) {
+                $("#content").css('min-height', '488px');
+            } else if (window_height == 960) {
+                $("#content").css('min-height', '680px');
+            } else if (window_height == 900) {
+                $("#content").css('min-height', '620px');
+            } else if (window_height == 1080) {
+                $("#content").css('min-height', '591px');
+            } else if (window_height == 1024) {
+                $("#content").css('min-height', '624px');
+            } else if (window_height == 800) {
+                $("#content").css('min-height', '520px');
+            } else if (window_height == 1050) {
+                $("#content").css('min-height', '650px');
+            } else if (window_height == 864) {
+                $("#content").css('min-height', '584px');
+            } else if (window_height == 1200) {
+                $("#content").css('min-height', '800px');
+            } else if (window_height == 1440) {
+                $("#content").css('min-height', '1040px');
+            }
+        })
+    </script>
+</head>
+<body>
+<!--页面开始-->
+<div id="wrapper">
+    <!--左侧开始-->
+    <div class="box clr">
+        <div id="left" class="box-lf">
+            <div class="logo"></div>
+            <div id="subnav" class="subnav mg-top-15 clr">
+                <ul>
+                    <li class="default"><a href="/storefrontinfo/index?modelkey=storefrontinfoindex">门店管理</a></li>
+                    <li class="foucs"><a href="/repastsfoodprimary/index?modelkey=repastsfoodprimaryindex">菜品管理</a></li>
+                    <li class="default"><a href="/coupons/index">优惠劵中心</a></li>
+                    <li class="default"><a href="/repastsimage/index?modelkey=repastsimageindex">餐饮图库</a></li>
+                    <li class="default"><a href="/couponscount/index">优惠劵统计</a></li>
+                    <li class="default"><a href="/shop/index?type=shop&modelkey=shopindex">微店铺</a></li>
+                    <li class="default"><a href="/wgroupbuy/goodslist?modelkey=shopgoodslisttg">微团购</a></li>
+                    <li class="default"><a href="/wlimit/goodslist?modelkey=shopgoodslistxs">限时购</a></li>
+                    <li class="default"><a href="/wseckill/goodslist?modelkey=shopgoodslistms">微秒杀</a></li>
+                    <li class="default"><a href="/wsale/goodslist?modelkey=shopgoodslistjp">微竞拍</a></li>
+                    <li class="default"><a href="/shopvoucherslist/voucherslist?modelkey=shopvoucherslist">使用抵用券</a></li>
+                    <li class="default"><a href="/sms/index?modelkey=smsindex">购买短信</a></li>
+                    <li class="default"><a href="/subaccount/index?modelkey=subaccount">子帐号管理</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--右侧开始-->
+        <div id="right" class="box-rt">
+            <div id="header">
+                <div class="user-msg">
+                    <sup><img src="http://t.static.dodoca.com/images/new.png" width="21" height="14" /></sup> <img src="http://wx.qlogo.cn/mmopen/ajNVdqHZLLAbvNXXjNrTXs8rd3NgVLPBTXOSuMdgYrib7wqkLF4eATiaUZLmsianWo9XgohvAsdQekCnndZ7gCSz9OlOLuVdNdTollZhw8xf8Q/0" width="32" height="32" /> <a href="/servicecenter/index">崔登虹 </a>欢迎您！
+                    <img src="/www/images/ture.png" width="48" height="17" />
+                    <a href="/index/loginout">退出</a> <span><a href="/announcement/annlist" target="_blank">最近更新</a> ︳ <a href="https://mp.weixin.qq.com/" target="_blank">公众平台</a> ︳ <a href="#" onclick="addfavorite()" rel="sidebar">收藏</a> ︳<a href="http://new.dodoca.com/shortcut/index">生成桌面图标</a> ︳<a href="http://new.dodoca.com/help" target="_blank">在线帮助</a></span>
+                </div>
+                <div class="sologo"></div>
+                <div class="navbg clr">
+                    <div class="nav-deal">
+                        <a href="/agent/index?modelkey=agentindex"><div class="home" id="menu1"></div></a>
+                        <a href="/welcome/index?modelkey=replywelcome"><div class="menu" id="menu2"></div></a>
+                        <a href="/redpacket/showall?modelkey=redpacketshowall"><div class="menu" id="menu3"></div></a>
+                        <a href="/coupon/showcoupon?modelkey=couponshowcoupon"><div class="menu" id="menu4"></div></a>
+                        <a href="/storefrontinfo/index?modelkey=storefrontinfoindex"><div class="menu" id="menu5"></div></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--弹出层开始-->
+            <div class="bgd"></div>
+            <div id="lay5_tc" class="newshop_layer" style="display:none;">
+                <img src="http://t.pic.dodoca.com/org/c/fa/ed6/9fa4/7588905beda95fdfccbddf.jpg">
+                <a href="http://t.new.dodoca.com/wholeshop/index" class="shop_btn_link"></a>
+                <i class="hide_s_layer"></i>
+                <b><a href="javascript:notip('1.2')">不再提示</a></b>
+            </div>
+
+            <!--安全认证弹层开始-->
+
+            <div id="lay3_tc" class="laysmall_tc" style="display:none;">
+                <div class="lay-tle_tc">安全认证</div>
+                <div class="lay-cont_tc pd-top-20 mg-top-20 clr">
+
+                    <div class="clr">
+                        <div class="que-name_tc">验证码</div>
+                        <div class="que-msg_tc"><input id="security_code_tc" type="text" placeholder="输入验证码" class="radius_tc pd-left-10 input_260" value="" /></div>
+                        <div class="que-btn_tc"><a href="javascript:;" id="saocode_tc" onclick="showtypez_tc()"><span id="textcode_tc" class="chosebtn_tc orange-btn03_tc float-lf mg-left-15">扫码使用演示</span></a></div><!--获取验证码后下面的二维码显示-->
+
+                    </div>
+                    <div class="mg-bottom-10 clr pd-left-30" style="height:30px">
+                        <div class="que-msg_tc pd-left-30 mg-left-30"><div class="error mg-left-20" id="security_no_tc" style="display:none;">（验证码错误）</div></div>
+                    </div>
+                    <div class="mg-bottom-10 clr">
+                        <!--控制演示动画弹层-->
+                        <div class="msgcode_tc" id="msgcode_tc">&nbsp;</div>
+                    </div>
+
+                    <div class="mg-bottom-10 clr que-code_w_tc pd-bottom-30">
+                        <div class="weixin_code_tc" align="center">
+                            <!--<img src="/www/images/weixin_code.jpg" width="176" />-->
+                            <img id="brand_img" src="/www/band_weibot.jpg" width="176" />
+                            <p>扫描二维码，点击关注后获取验证码</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="lay-foot_tc">
+                    <p class="float-lf">提示：通过安全认证的用户，可以使用密码找回功能。</p>
+                    <div class="grey-btn float-rt mg-right-30 mg-top-5" onclick="hidetypef_tc();"><a href="javascript:goto_div_tc()">返回</a></div>
+                    <div class="orange-btn float-rt mg-right-10 mg-top-5"><a href="javascript:submit_code_tc();">提交</a></div>
+                </div>
+            </div>
+            <!--安全认证弹层结束-->
+            <!--验证流程演示动画弹层开始-->
+            <input type="button" style="display:none" id="showtypez_tc" />
+            <input type="button" style="display:none" class="hidetypef_tc" />
+            <div id="lay4_tc" class="lay-customer_tc" style="display:none; margin-left:220px;">
+                <div class="lay-tle_tc"><span class="float-lf">验证流程</span><span class="float-rt close-btn_tc mg-top-10" onclick="hidetypez_tc();"><a href="javascript:;"></a></span></div>
+                <div class="laycont_tc clr" align="center"><img src="http://t.static.dodoca.com/images/step.gif" width="299" /></div>
+            </div>
+            <!--验证流程演示动画弹层结束-->
+            <!--弹出层结束-->
+
+            <script type="text/javascript" src="http://t.static.dodoca.com/js/queue.js"></script>
+            <script type="text/javascript" src="http://t.static.dodoca.com/js/jquery.cookie.js"></script>
+            <script type="text/javascript">
+
+
+                $(function () {
+                    infodialogBox_tc("#showedit_tc", "lay1_tc", "hideedit_tc");
+                    infodialogBox_tc("#showadd_tc", "lay2_tc", "hideadd_tc");
+                    infodialogBox_tc(".showtypef_tc", "lay3_tc", "hidetypef_tc");
+                    infodialogBox_tc("#showtypez_tc", "lay4_tc", "hidetypez_tc");
+                    infodialogBox_tc(".show_s_layer", "lay5_tc", "hide_s_layer");
+                })
+
+                function showtypez_tc() {
+                    if ($('#lay4_tc').attr('style') == 'display:none; margin-left:220px;') {
+                        $("#lay3_tc").css("margin-left", "-350px");
+                        $("#showtypez_tc").click();
+                    } else {
+                        hidetypez_tc();
+                        $('#lay4_tc').attr('style', 'display:none; margin-left:220px;');
+                    }
+                }
+
+                function hidetypef_tc() {
+                    $("#lay3_tc").css("margin-left", "");
+                    $(".hidetypef_tc").click();
+                }
+                function showplay_tc() {
+                    if ($('#lay4_tc').attr('style') == 'display:none; margin-left:220px;') {
+                        $("#lay3_tc").css("margin-left", "-350px");
+                        $("#showtypez_tc").click();
+                    } else {
+                        hidetypez_tc();
+                        $('#lay4_tc').attr('style', 'display:none; margin-left:220px;');
+                    }
+                }
+                function hidetypez_tc() {
+                    $("#lay4_tc").hide();
+                    $("#lay3_tc").css("margin-left", "");
+                }
+                function goto_div_tc() {
+                    //$('#brand_img').attr('src','');
+                    //$('#textcode').text('获取验证码');
+                    //$('#saocode').attr('onClick','showtypez()');
+                    $('#security_no_tc').attr('style', 'display:none;');
+                    $('#security_code_tc').val('');
+                }
+                function submit_code_tc() {
+                    var code = $('#security_code_tc').val();
+                    if (!code) {
+                        alert('请输入验证码！');
+                        return;
+                    }
+                    $.ajax({
+                        async: false, type: 'POST', url: '/servicecenter/iscode', data: { 'code': code }, success: function (data) {
+
+                            if (data == 1) {
+                                alert('认证通过！');
+                                document.location.reload();
+                            } else if (data == 2) {
+                                $('#security_no_tc').attr('style', 'display:block;');
+                                return;
+                            } else if (data == 3) {
+                                alert('认证失败！');
+                                return;
+                            } else if (data == 4) {
+                                alert('该账号已认证！');
+                                document.location.reload();
+                            }
+                        }
+                    })
+                }
+
+                function notip(version) {
+                    $.cookie('hide_extend_version', version);
+                    $('.hide_s_layer').trigger("click");
+                }
+            </script>
+            <link href="/www/css/box.css" media="all" rel="stylesheet" type="text/css" />
+            <link rel="stylesheet" type="text/css" href="/www/css/com_list.css" />
+            <link href="/www/css/micro_cate.css" rel="stylesheet" type="text/css" />
+            <link href="/www/css/flyer.css" rel="stylesheet" type="text/css" />
+            <style type="text/css">
+                .qr {
+                    display: inline-block;
+                    float: none;
+                    width: 20px;
+                    height: 18px;
+                    background: url(/www/images/micro_cate/qr.png) no-repeat 0px 0px;
+                }
+
+                .qr:hover {
+                    display: inline-block;
+                    float: none;
+                    width: 20px;
+                    height: 18px;
+                    background: url(/www/images/micro_cate/qra.png) no-repeat 0px 0px;
+                }
+                /*确认*/
+                .bz {
+                    display: inline-block;
+                    float: none;
+                    width: 20px;
+                    height: 18px;
+                    background: url(/www/images/micro_cate/bz.png) no-repeat 0px 0px;
+                }
+
+                .bz:hover {
+                    display: inline-block;
+                    float: none;
+                    width: 20px;
+                    height: 18px;
+                    background: url(/www/images/micro_cate/bza.png) no-repeat 0px 0px;
+                }
+                /*备注*/
+                .ybz {
+                    display: inline-block;
+                    float: none;
+                    width: 20px;
+                    height: 20px;
+                    background: url(/www/images/micro_cate/ybz.png) no-repeat 0px 0px;
+                }
+                /*已备注*/
+                .ck {
+                    display: inline-block;
+                    float: none;
+                    width: 18px;
+                    height: 18px;
+                    background: url(/www/images/fan_card/ck.png) no-repeat 0px 0px;
+                }
+
+                .ck:hover {
+                    display: inline-block;
+                    float: none;
+                    width: 18px;
+                    height: 18px;
+                    background: url(/www/images/fan_card/cka.png) no-repeat 0px 0px;
+                }
+                /*查看*/
+                .edit {
+                    display: inline-block;
+                    float: none;
+                    width: 18px;
+                    height: 18px;
+                    background: url(/www/images/input02.png) no-repeat -36px -12px;
+                }
+
+                .edit:hover {
+                    display: inline-block;
+                    float: none;
+                    width: 18px;
+                    height: 18px;
+                    background: url(/www/images/input02.png) no-repeat 0px -12px;
+                }
+                /*编辑*/
+                .close {
+                    display: inline-block;
+                    float: none;
+                    width: 18px;
+                    height: 18px;
+                    margin-left: 0px;
+                    background: url(/www/images/input.png) no-repeat -69px -2px;
+                }
+
+                .close:hover {
+                    display: inline-block;
+                    float: none;
+                    width: 18px;
+                    height: 18px;
+                    margin-left: 0px;
+                    background: url(/www/images/input.png) no-repeat -24px -2px;
+                }
+                /*删除*/
+                .td_r {
+                    display: inline-block;
+                    width: 20px;
+                    height: 18px;
+                    background: url(/www/images/micro_cate/qra.png) no-repeat 0px 0px;
+                }
+            </style>
+
+            <div id="content" class="clr">
+                <!--主内容部分-->
+                <div id="con-box">
+
+                </div>
+            </div>
+
+            <!--添加菜品-->
+            <div id="view_detail" style="display:none">
+                <iframe id="iframe1" width="412" src="" height="170" frameborder="0" scrolling="no"></iframe>
+            </div>
+
+            <script type="text/javascript" src="/www/js/common.js"></script>
+            <script src="/www/js/jquery.artDialog.min.js" type="text/javascript"></script>
+            <script>
+                $(".sbt").click(function () {
+                    form1.submit();
+                });
+                $("#type").change(function () {
+                    var type = $(this).val();
+                    window.location.href = "/repastsfoodprimary/index?type=" + type;
+                });
+                //查看菜品详情
+                $(".view_detail").click(function () {
+                    var id = $(this).attr("id");
+                    url = "/repastsfoodprimary/fooddetail?id=" + id;//iframe1
+                    $("#iframe1").attr("src", url);
+                    $.dialog({
+                        title: '菜品详情',
+                        content: document.getElementById('view_detail'),
+                        cancelValue: '返回',
+                        cancel: true,
+                        padding: "0px",
+                        lock: true,
+                        fixed: true
+                    });
+                });
+
+                function delfood(id) {
+                    if (confirm("你确定要删除当前数据吗？")) {
+                        $.post('/repastsfoodprimary/delfood', { 'id': id }, function (data) {
+                            if (data.status == 'ok') {
+                                alert(data.mes);
+                                window.location.reload();
+                            } else {
+                                alert(data.mes);
+                            }
+                        }, 'json');
+                    }
+                }
+                //全选
+                function checkimg(imgclass, imgid) {
+                    imgclass == "checkimg1" ? $("#" + imgid).attr("class", "checkimg2") : $("#" + imgid).attr("class", "checkimg1"); $("#checkimgallid").attr("class", "checkimg1")
+                }
+
+                function checkimgall(imgclass, imgid) {
+                    checkimg(imgclass, imgid);
+                    if (imgclass == "checkimg1") {
+                        $(".checkimg1").each(function (obj) { $("#" + this.id).attr("class", "checkimg2"); });
+                    } else {
+                        $(".checkimg2").each(function (obj) { $("#" + this.id).attr("class", "checkimg1"); });
+                    }
+                }
+                //全选批量删除
+                function deletered() {
+                    var id = "";
+                    var i = 0;
+                    $(".checkimg2").each(function (obj) {
+                                if (this.id != "checkimgallid") {
+                                    id == "" ? id = this.id : id = id + "," + this.id;
+                                    i++;
+                                }
+                            }
+                    );
+                    if (i < 1) {
+                        alert("请选择您要删除的数据");
+                        return false;
+                    }
+                    if (!confirm("确定要批量删除这些数据吗")) { return false; }
+                    $.post("/repastsfoodprimary/delfood", { 'id': id }, function (data) {
+                        if (data.status == 'ok') {
+                            alert(data.mes);
+                            window.location.reload();
+                        } else {
+                            alert(data.mes);
+                        }
+                    }, "json");
+                }
+
+                function allcheckimgall() {
+                    $("#checkimgallid").click();
+                }
+            </script>
+            <div id="qlink">
+                <ul>
+                    <li><a href="/servicecenter/index"><div class="icon01"></div></a></li>
+                    <li><a href="/profession/profession"><div class="icon02"></div></a></li>
+                    <li><a href="/api/show"><div class="icon03"></div></a></li>
+                    <li><a href="/datacenter/index"><div class="icon04"></div></a></li>
+                    <li><a href="/buyedit/index"><div class="icon05"></div></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="footer">
+        <div class="footbox">
+            <div class="foot-box clr">
+                <div class="foot-lf"></div>
+                <div class="foot-rt">
+                    <p><a href="/about/about" target="_blank">关于点点客</a> ︳ <a href="/prouducts/index" target="_blank">产品介绍</a> ︳ <a href="/prouducts/operate" target="_blank">微信代运营</a> ︳ <a href="/channel/index" target="_blank">渠道招商</a></p>
+                    <p>
+                        上海点客信息技术股份有限公司 版权所有 &copy;  2014. <a href="http://www.miitbeian.gov.cn" target="_blank">沪ICP备 08006976-1号</a>
+                        <script type="text/javascript">
+                            var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                            document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F34452820fd1fd9b337cf87e4f4dea262' type='text/javascript'%3E%3C/script%3E"));
+                        </script>
+
+                        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1252928138'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s23.cnzz.com/z_stat.php%3Fid%3D1252928138%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--底部开始-->
+</div>
+
+<script type="text/javascript" src="http://t.static.dodoca.com/js/common.js"></script>
+<script type="text/javascript">
+    function placeholdervalue(ids) {
+        if ($("#" + ids).val() == "") {
+            var now = new Date();
+            var yearvalue = now.getFullYear();       //年
+            var monthvalue = now.getMonth() + 1;     //月
+            var dayvalue = now.getDate();            //日
+
+            var clockvalue = yearvalue + "-";
+
+            if (monthvalue < 10)
+                clockvalue += "0";
+
+            clockvalue += monthvalue + "-";
+
+            if (dayvalue < 10)
+                clockvalue += "0";
+
+            clockvalue += dayvalue;
+            $("#" + ids).val(clockvalue);
+        }
+    }
+</script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+/*
+ * @author litian
+ * @createDate 2016/3/14
+ */
+
+/* nav-导航条css样式修改 */
+body nav{
+    /*padding: 0px 196.5px;*/
+}
+.container .row{
+    float: left;
+}
+.container .panel{
+    position: relative;
+    left: 160px;
+    top: 20px;
+    width: 1000px;
+}

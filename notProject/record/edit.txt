@@ -1,0 +1,2 @@
+js:
+    将时间戳转换成日期格式：{{$item.create_date|date_format:'%Y-%m-%d %H:%M:%S'}}；

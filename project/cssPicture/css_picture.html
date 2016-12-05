@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script type="application/javascript" src="../www/js/jquery.transform.js"></script>
+    <title>css制作图形</title>
+    <style type="text/css">
+        body{background: url("../www/talkAbout/image/bg.png");padding: 50px 0 0 15px;}
+        .block{border: 1px solid #330706;margin: 2px 0 2px 0;border-radius: 3px 3px 3px 3px;}
+        /* 图形中的字体 */
+        .block .fang,.arrow{text-align: center;color: #ffffff;font-family: "宋体", "新宋体", Helvetica, Arial, Tahoma;line-height: 45px;}
+        /* 图形 */
+        /* (1) */
+        .block .fang{width: 50px;height: 50px;background-color: #000000;margin: 10px 0 0 10px;border: 20px solid;border-color: red #0000ff #db85ff #ffff00;
+            float: left;}
+        .block .arrow{float: left;margin: 20px 20px 0 20px;height: 85px}
+        .block .arrowFang{width:100px;border: 1px solid red;background-color: red;height: 30px}
+        .block .arrowTriangle{width: 0px;height: 0px;border: 35px solid;border-color: #ff001d transparent transparent transparent;
+            transform: rotate(270deg);transform-origin:100% 100%;position: relative;left: -40px;top: -90px;}
+        /* (2) */
+        .block .triangle{width: 0;height: 0;border: 50px solid;}
+        .block .graphicalBlock{padding: 15px 15px 0px 15px;float: left}
+        .block .graphicalBlock .parallelogram{width: 100px;height: 100px;background: #ff4e0b;float: left;margin: 0 30px 0 30px;}
+        .block .graphicalBlock .simpleGraphical1{background-color: #0e7920;float: left;width: 70px;height: 70px;margin: 30px 0px 0px 30px;}
+        .block .graphicalBlock .rotating{margin-left: 25px;margin-right: 25px;}
+        .block .graphicalBlock .tail{background-color:#ffffff;transform: rotate(45deg);transform-origin:100% 100%;border-radius: 180px 0px 0px 0px;}
+        /* (3) */
+        .block .graphicalBlock .heart{width: 70px;height: 70px;margin: 30px 0px 0px 30px;}
+
+        /* 注释 */
+        .block .font{text-align: left;color: #C51219;font-family: "Microsoft YaHei", "微软雅黑", Helvetica, "黑体", Arial, Tahoma;line-height: 45px;
+            clear: both;margin: 0 0 0 10px;}
+    </style>
+</head>
+<body>
+<div class="block">
+    <div class="fang">图1</div>
+    <div class="arrow">
+        <div class="arrow arrowFang" style="line-height: 30px">div宽、高为0</div>
+        <div class="arrow arrowTriangle"></div>
+    </div>
+    <div class="fang" style="width: 0;height: 0;color: #000066;margin: 35px 0 0 -100px;"></div>
+    <div class="font">1、div盒子边框在div盒子趋于0的效果</div>
+</div>
+<div class="block">
+    <div class="graphicalBlock">
+        <div class="triangle" style="border-color: #ff001d transparent transparent #ff001d;"></div>
+        <div class="font">（1）左上三角形</div>
+    </div>
+    <div class="graphicalBlock">
+        <div class="triangle" style="border-color: #002156 #002156 transparent transparent;"></div>
+        <div class="font">（2）右上三角形</div>
+    </div>
+    <div class="graphicalBlock">
+        <div class="triangle" style="border-color: transparent #561e1a #561e1a transparent;"></div>
+        <div class="font">（3）右下三角形</div>
+    </div>
+    <div class="graphicalBlock">
+        <div class="triangle" style="border-color: transparent transparent #ff64e2 #ff64e2;"></div>
+        <div class="font">（4）左下三角形</div>
+    </div>
+    <div class="graphicalBlock">
+        <div class="parallelogram" style="transform: skew(20deg);"></div>
+        <div class="parallelogram" style="transform: skew(160deg);"></div>
+        <div class="parallelogram" style="transform: skew(-20deg);"></div>
+        <div class="parallelogram" style="transform: skew(-160deg);"></div>
+        <div class="font">（5）平行四边形</div>
+    </div>
+    <div class="font">2、数学图形:三角形是由边框组成，平行四边形是扭曲形成的</div>
+</div>
+<div class="block">
+    <div class="graphicalBlock">
+        <div class="parallelogram simpleGraphical1" style="border-radius: 50px 50px 0 0;"></div>
+        <div class="parallelogram simpleGraphical1" style="border-radius: 3px 3px 3px 3px;"></div>
+        <div class="font">（1）图形一:向div盒子添加圆角边框</div>
+    </div>
+    <div class="graphicalBlock">
+        <div class="simpleGraphical1" style="border-radius: 180px 0px 0px 0px;"></div>
+        <div class="simpleGraphical1" style="border-radius: 0px 180px 0px 0px;"></div>
+        <div class="simpleGraphical1" style="border-radius: 0px 0px 180px 0px;"></div>
+        <div class="simpleGraphical1" style="border-radius: 0px 0px 0px 180px;"></div>
+        <div class="simpleGraphical1 rotating" style="transform: rotate(45deg);transform-origin:100% 100%;border-radius: 180px 0px 0px 0px;"></div>
+        <div class="simpleGraphical1 rotating" style="transform: rotate(45deg);transform-origin:100% 100%;border-radius: 0px 180px 0px 0px;"></div>
+        <div class="simpleGraphical1 rotating" style="transform: rotate(45deg);transform-origin:100% 100%;border-radius: 0px 0px 180px 0px;"></div>
+        <div class="simpleGraphical1 rotating" style="transform: rotate(45deg);transform-origin:100% 100%;border-radius: 0px 0px 0px 180px;"></div>
+        <div class="font">（2）图形二:div盒子->扇形</div>
+    </div>
+    <div class="graphicalBlock" style="clear: both;">
+        <div class="simpleGraphical1 rotating tail" style="border-top:15px solid #669;"></div>
+        <div class="simpleGraphical1 rotating tail" style="border-left:15px solid #669;"></div>
+        <div class="simpleGraphical1 rotating tail" style="border-radius: 0px 180px 0px 0px;border-right:15px solid #669;"></div>
+        <div class="simpleGraphical1 rotating tail" style="border-radius: 0px 0px 180px 0px;border-bottom:15px solid #669;"></div>
+        <div class="font">（3）图形二:div盒子->尾巴</div>
+    </div>
+    <div class="font">3、简单图形</div>
+</div>
+<div class="block">
+    <div class="graphicalBlock">
+        <div class="heart simpleGraphical1" style="transform: rotate(45deg);transform-origin:100% 100%;border-radius: 0px 0px 0px 0px;"></div>
+        <div class="font">（1）图形二:div盒子->❤</div>
+    </div>
+    <div class="font">3、复杂图形</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,731 @@
+###########################################################################################
+微店铺升级（3.0版本）：
+    我完成的：商品
+         		标签；
+         		关联商品；
+         		虚拟商品；
+
+     总共添加成功的 （主要看字段保存与显示）：
+        		商品限购：成功
+        		商品标签：成功
+        		关联商品：
+        		    bug：原先选有关联商品，现取消关联商品选项后，数据库关联商品字段还有数据，手机端也显示；       //暂时不管，其他没问题，pc端存储成功
+        		我的收藏：显示成功   //手机端没看数据库
+        		上门自提：成功
+        		虚拟商品：成功
+        		消息模板：不管，手机端的
+        		//只测试了店铺设置，手机端的没管，没法测试或者是完全不同，包括电商的
+        		使用会员卡兑换券支付：成功，pc端
+        		使用优惠劵支付：成功，pc端
+        		门店领劵：不管，手机端的
+        		积分抵现：成功，pc端
+        		消费奖励：成功，pc端
+
+更改的文件：
+    view:shop/add-goods.tpl
+
+    controller:shopController.php —— addgoodsdpAction
+###########################################################################################
+完成：
+	商品
+		限购；
+
+	电商设置
+		上门自提；
+		兑换券支付；
+		优惠劵支付；
+		积分抵现；
+		消费奖励；
+		
+
+未完成（找到）：
+	商品
+		标签；
+		关联商品；
+		虚拟商品；
+
+
+未完成（未找到）：	//不管，手机端的
+	电商设置
+		我的收藏；	//这个除外
+		消息模板；
+		门店领劵；
+******************************************************************************************
+新增评价管理：店铺
+******************************************************************************************
+更改：
+    PC端：
+        controller：
+            shopController => 新增commentAction方法
+
+        view：
+            shop/comment.tpl => 新增评价页面
+            shop/setup.tpl => 新增评价入口
+
+    手机端：
+        view：
+            mobile_goodsorder_index => 待评价（新增判断条件 || ver_type = 1）
+******************************************************************************************
+新增积分设置：店铺
+******************************************************************************************
+bug list:
+
+    1、【手机端】我的收藏样式问题（没有左边框）；
+    2、购买虚拟商品（非优惠劵）多个，在我的抵用劵页面只显示一个，但有多个使用期限且相同；
+    3、购买页面，使用积分与优惠劵（交叉先后使用），抵现金额显示错误；                   //后面没出现这个错误
+    4、【手机端】个别商品：总金额0.05￥，选一折优惠劵，应付金额0.01，取消或勾选积分抵现（使用积分0），应付金额变成0.00，积分抵扣0.00
+        个人觉得是商品金额小的缘故，舍入出错
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+微店铺升级（3.1版本）
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+PC端
+
+1、店铺设置
+	更改：去掉时间限定一栏（移到订单设置）；
+
+
+2、商品管理
+	更改：增加‘淘宝助理导入’入口，增加淘宝助理导入、如何导出两个网页；
+
+
+3、订单管理
+	1）订单设置
+	    更改：新增订单时间设置；
+
+	2）订单详情
+	    更改： [1]订单信息：增加显示信息；         //收货地址、快递单号、物流公司
+	           [2]商品信息：增加序列号信息显示；   //不知是什么序列号
+	           [3]费用信息：增加优惠劵（或兑换券）信息显示；
+	           [4]增加备注信息（可编辑）；
+	           [5]订单状态底部（返回旁）：增加各个状态显示与对应的操作；
+
+	3）管理自提
+	    更改：暂未找到原版，目测要新增页面
+
+	4）打印发货单
+	    更改：出处没找到
+
+	5）运单管理
+	    更改：目测也是新增，‘新增模板’页面
+
+	6）退款申请优化
+	    更改：新增两段信息（发货前可退款选项、会员卡余额支付选项）
+
+	7）子账户管理
+	    更改：修改页面新增微店铺的一些权利；
+
+	8）店铺活动：
+	    更改:   [1]:活动（团购、秒杀等）：删除订单管理入口；
+	            [2]:查看订单中新增该活动中的所有订单管理；
+
+手机端
+
+1、商品详情
+    增加规格信息入口
+
+2、订单相关
+    1）普通快递
+        新增 '普通快递'、'上门自提'tab页；
+        新增身份证信息；
+
+    2）上门自提
+        新增 '普通快递'、'上门自提'tab页；
+        新增身份证信息；
+
+        备注：普通快递、上门自提的各自的页面不同
+
+    3）虚拟商品
+        新增身份证等信息；
+
+    4）订单查询
+        为每个新增订单新增状态显示与操作
+
+    5）底部菜单与个人中心
+        将'联系客服'更改为'个人中心'入口;
+        个人中心，店铺模块：添加“全部订单”、“我的抵用券”；
+        订单状态：显示 待付款、待发货、待收货、待评价；
+
+￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥
+总共完成功能简述：
+1、【已上传】店铺升级
+    评价管理；
+    商品
+        限购；
+        关联商品；
+        标签；
+    我的收藏；
+    上门自提；
+    虚拟商品；
+    新增
+        运费管理；
+
+2、【已上传】加单位（PC端）
+
+3、【已上传】增加全能版版本号
+
+4、log错误修改
+
+5、订单管理（发货格式）:GoodsOrder.php=>showgoodsorderdetailAction=>$add_info = $obj->fetchAll($sql);$sql操作语句错误
+
+************************************************************************************************************************
+微店铺测试环境（没有部署上去的功能）
+1、运费模板
+************************************************************************************************************************
+
+3.1升级前总共修改文件
+    controllers：
+        shopController.php：店铺增加标签、关联商品、虚拟商品、新增commentAction方法、加单位、增加运费管理模板
+        wmallController.php：加单位
+        wgroupbuyController.php：加单位
+        WseckillController.php：加单位
+        WlimitController.php：加单位
+        MobilegoodsdpController.php:店铺增加运费模板
+
+        mobilegoodsorderController.php：微电商与全能版 ver_type 增加 29
+        mobilecommentController.php：微电商与全能版 ver_type 增加 29
+        mobilegoodsjpController.php：微电商与全能版 ver_type 增加 29
+        logisticsController.php：微电商与全能版 ver_type 增加 29
+        mobilecollectController.php：微电商与全能版 ver_type 增加 29
+
+
+
+    views：
+        shop/add-goods.tpl：店铺增加标签、关联商品、虚拟商品、加单位
+        shop/comment.tpl => 新增评价页面
+        shop/setup.tpl => 新增评价入口、新增运费管理模板入口
+        shop/goods_list.tpl => 新增评价入口,新增标签入口
+        shop/goodsorder_list.tpl => 新增评价入口
+        shop/order_refund_index.tpl => 新增评价入口
+        shop/order_set_field.tpl => 新增评价入口
+        shop/order_refund_list.tpl => 新增评价入口
+        shop/shop_freight.tpl => 新增评价入口
+
+        shop/setup.tpl => 运费模板完善
+        wmall/setup.tpl => 运费模板完善
+
+        wmall/add_goods.tpl => 加单位
+        wgroupbuy/add_goods.tpl => 加单位
+        Wseckill/add_goods.tpl => 加单位
+        Wlimit/add_goods.tpl =>加单位
+
+        shop/shop_freight.tpl => 增加运费管理模板页面
+
+        mobilemall/mobile_goodsorder_index => 待评价（新增判断条件 || ver_type = 1）：要求删除版本控制判断，本地上显示没有删除—2015-9-25
+
+    models：
+        WxGoodsDpMgt.php => 关联商品、手机端详情显示
+        WxGoods.php => 加单位
+
+    sql:
+        wx_goods表增加新字段unit（单位)
+
+*********************************************************************************************
+9-21~10-8
+controllers:
+  ? WmallController.php
+    ShopController.php
+    MobilegoodsdpController.php
+
+views:
+    shop/setup.tpl、
+    wmall/setup.tpl、
+    mobilemall/mobile_goodsorder_orderinfo.tpl、mobile_goodsorder_pay.tpl、order_payment.tpl
+    mobile_goodstg_details.tpl、mobilegoodsinfos.tpl
+
+js:
+    shop.info.js、wmall.cutimg.js、
+
+others:
+    /weixin/lib/comm.php、/include/GoodsOrder.php、/weixin/lib/core/route.php
+
+
+*********************************************************************************************
+2015-10-13 Log修改文件
+    MobilegoodsorderController、ShopController、shop/add_goods.tpl、WmallController、
+    MobilegoodsdpController、GoodsOrder、wgroupbuyController
+*********************************************************************************************
+2015-10-13 电商&&店铺3.1大升级修改文件:页面偶尔出现的问题修改的文件（修没修没区别，只是避免svn更新）还原
+    WmallController.php => orderSetFieldAddAction:
+        if ($res1 !== false && $res1 !== false && $res1 !== false) {
+            echo "<script>alert('修改成功');window.location.href='/wmall/order-set-field';</script>";
+            exit;
+        }
+        else {
+            echo "<script>alert('修改失败');window.location.href = '/wmall/order-set-field';</script>";
+//            echo '<script>alert("修改失败");window.location.href = "/wmall/order-set-field";</script>';
+            exit;
+        }
+*********************************************************************************************
+2015-10-13 电商&&店铺3.1大升级修改文件
+PC端
+    1、上门自提；
+        新增页面：pickup.tpl(shop && wmall)
+        新增Action：pickupSetAction等(shop && wmall)
+        修改页面：setup.tpl(shop && wmall)
+        新增表：wx_pickup
+        新增model：WxPickupModel.php
+    2、批量发货；
+        修改页面：goodsorder_list.tpl(shop && wmall)
+        新增php文件：include/BatchShipByImportStatic.php
+        新增Action：downloadTemplateAction、importAction((shop && wmall))
+    3、退款优化；
+        修改页面：order_refund_index.tpl(shop && wmall)
+        修改Action：wxOrderReturnSet.php/getBank、orderRefundAction(shop && wmall)
+        修改model:WxOrderReturnSet.php
+        新增字段：表wx_order_return_set字段Receiving_off
+
+手机端
+    controllers：
+        修改：
+            MobilegoodsdpController.php
+            MobilegoodsorderController.php
+
+    view:
+        新增：
+            mobilemall/my-pickup.tpl
+            mobilemall/pickup-pwd.tpl
+            mobilemall/store-select.tpl
+            mobilemall/..no-ship.tpl
+            .../..no-receive.tpl
+
+        修改：
+            mobilemall/..daifukuang.tpl
+            .../..list.tpl
+            .../..diapingjia.tpl
+
+    model:
+        wxOrder.php
+        wxPickupModel.php
+
+    include：
+        route.php
+        goodsOrder.php
+
+    js/css/image:
+        新增：
+            www/mobile/newmall:
+
+************************************************************************************************************************
+统计3.1大升级PC端电商店铺更新文件
+author:luoqin-57302;litian-57476;lujingjing-57478;yangtao-57326
+    其他：
+        weixin/weixin/lib/core/router.php                   litian
+        weixin/service/cron/init_cancel_goods_order.php             lujingjing
+        weixin/service/cron/init_complete_order.php                 lujingjing
+
+    include：
+        weixin/include/GoodsOrder.php               luoqin  litian
+        weixin/include/OrderStatistics.php          luoqin
+        weixin/include/BatchShipByImportStatic.php          litian
+        weixin/include/GoodsApi.php                                 lujingjing
+        weixin/include/ResultConnector.php                          lujingjing
+        weixin/include/CommonApi.php                                lujingjing
+
+        weixin/include/models/WxDpSet.php           luoqin  litian
+        weixin/include/models/WxOrder.php           luoqin  litian  lujingjing
+        weixin/include/models/WxPickupModel.php             litian
+        weixin/include/models/WxOrderReturnSet.php          litian
+        weixin/include/models/WxGoods.php                           lujingjing
+        weixin/include/models/WxGoodsQuanList.php                   lujingjing
+        weixin/include/models/WxWaybill.php                                     yangtao
+
+X       weixin/include/models/WxFormDataInfo.php                                yangtao
+
+
+    controllers:
+        weixin/weixin/wx_2.0/controllers/ShopController.php                 luoqin  litian
+        weixin/weixin/wx_2.0/controllers/WmallController.php                luoqin  litian              yangtao
+        weixin/weixin/wx_2.0/controllers/WseckillController.php                     litian
+        weixin/weixin/wx_2.0/controllers/WgroupbuyController.php                    litian  lujingjing
+        weixin/weixin/wx_2.0/controllers/MobilegoodsdpController.php                litian  lujingjing
+        weixin/weixin/wx_2.0/controllers/MobilegoodsorderController.php             litian  lujingjing
+        weixin/weixin/wx_2.0/controllers/MobilecommentController.php                litian
+        weixin/weixin/wx_2.0/controllers/WhMallDataController.php                           lujingjing
+        weixin/weixin/wx_2.0/controllers/ShopvoucherslistController.php                     lujingjing  yangtao
+        weixin/weixin/wx_2.0/controllers/MobilegoodstgController.php                        lujingjing
+        weixin/weixin/wx_2.0/controllers/MobilegoodsmsController.php                        lujingjing
+        weixin/weixin/wx_2.0/controllers/MobilegoodsxsController.php                        lujingjing
+        weixin/weixin/wx_2.0/controllers/MobilegoodsjpController.php                        lujingjing
+        weixin/weixin/wx_2.0/controllers/ChildshopvoucherController.php                                 yangtao 10/10
+
+X       weixin/weixin/wx_2.0/controllers/MobileadminsuperformController.php                             yangtao
+X       weixin/weixin/wx_2.0/controllers/SuperformController.php            luoqin                      yangtao
+
+
+    views:
+        weixin/weixin/wx_2.0/views/goodsorder_detail.tpl                    luoqin
+        weixin/weixin/wx_2.0/views/shop_statistic_info.tpl                                  lujingjing  yangtao
+        weixin/weixin/wx_2.0/views/mobile_goodstg_purchased.tpl                             lujingjing
+        weixin/weixin/wx_2.0/views/mobile_goodsms_buy.tpl                                   lujingjing
+        weixin/weixin/wx_2.0/views/mobile_order_queren.tpl                                  lujingjing
+
+        weixin/weixin/wx_2.0/views/jp/mobile_order_queren.tpl                               lujingjing
+
+        weixin/weixin/wx_2.0/views/shop/comment.tpl                         luoqin
+        weixin/weixin/wx_2.0/views/shop/goods_list.tpl                      luoqin                      yangtao
+        weixin/weixin/wx_2.0/views/shop/goodsorder_list.tpl                 luoqin  litian              yangtao
+        weixin/weixin/wx_2.0/views/shop/setup.tpl                           luoqin  litian  lujingjing
+        weixin/weixin/wx_2.0/views/shop/order_set_field.tpl                 luoqin
+        weixin/weixin/wx_2.0/views/shop/order_refund_index.tpl              luoqin  litian
+        weixin/weixin/wx_2.0/views/shop/pickup.tpl                                  litian
+        weixin/weixin/wx_2.0/views/shop/add_goods.tpl                               litian              yangtao
+        weixin/weixin/wx_2.0/views/shop/confirmdeliver.tpl                                              yangtao
+        weixin/weixin/wx_2.0/views/shop/printdatawaybill.tpl                                            yangtao
+        weixin/weixin/wx_2.0/views/shop/printinvoice.tpl                                                yangtao
+        weixin/weixin/wx_2.0/views/shop/printwaybill.tpl                                                yangtao
+
+        weixin/weixin/wx_2.0/views/wmall/comment.tpl                        luoqin
+        weixin/weixin/wx_2.0/views/wmall/decorate.tpl                       luoqin
+        weixin/weixin/wx_2.0/views/wmall/goods_list.tpl                     luoqin                      yangtao
+        weixin/weixin/wx_2.0/views/wmall/goodsorder_list.tpl                luoqin  litian              yangtao
+        weixin/weixin/wx_2.0/views/wmall/setup.tpl                          luoqin  litian  lujingjing
+        weixin/weixin/wx_2.0/views/wmall/order_set_field.tpl                luoqin
+        weixin/weixin/wx_2.0/views/wmall/order_refund_index.tpl             luoqin  litian
+        weixin/weixin/wx_2.0/views/wmall/pickup.tpl                                 litian
+        weixin/weixin/wx_2.0/views/wmall/add_goods.tpl                              litian
+        weixin/weixin/wx_2.0/views/wmall/new_category.tpl                           litian
+        weixin/weixin/wx_2.0/views/wmall/confirmdeliver.tpl                                             yangtao
+        weixin/weixin/wx_2.0/views/wmall/printdatawaybill.tpl                                           yangtao
+        weixin/weixin/wx_2.0/views/wmall/printinvoice.tpl                                               yangtao
+        weixin/weixin/wx_2.0/views/wmall/printwaybill.tpl                                               yangtao
+
+        weixin/weixin/wx_2.0/views/waybill                                                              yangtao
+        weixin/weixin/wx_2.0/views/waybill/add.tpl                                                      yangtao
+        weixin/weixin/wx_2.0/views/waybill/index.tpl                                                    yangtao
+
+        weixin/weixin/wx_2.0/views/wgroupbuy/goodsorder_list.tpl            luoqin
+        weixin/weixin/wx_2.0/views/wgroupbuy/goods_list.tpl                 luoqin
+
+        weixin/weixin/wx_2.0/views/wseckill/goodsorder_list.tpl             luoqin
+        weixin/weixin/wx_2.0/views/wseckill/goods_list.tpl                  luoqin
+        weixin/weixin/wx_2.0/views/wseckill/add_goods.tpl                           litian
+
+        weixin/weixin/wx_2.0/views/wlimit/goodsorder_list.tpl               luoqin
+        weixin/weixin/wx_2.0/views/wlimit/goods_list.tpl                    luoqin
+
+        weixin/weixin/wx_2.0/views/wsale/goodsorder_list.tpl                luoqin
+        weixin/weixin/wx_2.0/views/wsale/goods_list.tpl                     luoqin
+
+        weixin/weixin/wx_2.0/views/mobilemall/my-pickup.tpl                         litian  lujingjing
+        weixin/weixin/wx_2.0/views/mobilemall/pickup-pwd.tpl                        litian  lujingjing
+        weixin/weixin/wx_2.0/views/mobilemall/store-select.tpl                      litian  lujingjing
+        weixin/weixin/wx_2.0/views/mobilemall/mobile_goodsorder_daifukuan.tpl       litian
+        weixin/weixin/wx_2.0/views/mobilemall/mobile_goodsorder_daipingjia.tpl      litian
+        weixin/weixin/wx_2.0/views/mobilemall/mobile_goodsorder_list.tpl            litian
+        weixin/weixin/wx_2.0/views/mobilemall/mobile_goodsorder_not_receive.tpl     litian
+        weixin/weixin/wx_2.0/views/mobilemall/mobile_goodsorder_not_ship.tpl        litian
+        weixin/weixin/wx_2.0/views/mobilemall/mobile_goodsorder_noorder.tpl         litian
+        weixin/weixin/wx_2.0/views/mobilemall/mobile_goodsorder_orderinfo.tpl       litian  lujingjing
+        weixin/weixin/wx_2.0/views/mobilemall/footer.tpl                            litian  lujingjing
+        weixin/weixin/wx_2.0/views/mobilemall/mobile_goodsorder_pay.tpl             litian  lujingjing
+        weixin/weixin/wx_2.0/views/mobilemall/list_product_1.tpl                            lujingjing
+        weixin/weixin/wx_2.0/views/mobilemall/list_product_2.tpl                            lujingjing
+        weixin/weixin/wx_2.0/views/mobilemall/list_product_3.tpl                            lujingjing
+        weixin/weixin/wx_2.0/views/mobilemall/list_product_4.tpl                            lujingjing
+        weixin/weixin/wx_2.0/views/mobilemall/order_payment.tpl                             lujingjing
+        weixin/weixin/wx_2.0/views/mobilemall/order_return.tpl                              lujingjing
+
+
+X       weixin/weixin/wx_2.0/views/superform/superform_add.tpl              luoqin
+X       weixin/weixin/wx_2.0/views/superform/editor/statistics.tpl                                      yangtao
+
+    www/js;www/css:     新增文件夹newmall     lujingjing
+
+X       weixin/weixin/www/js/superform/add.js                               luoqin
+
+        weixin/weixin/www/js/shop.info.js                                                   lujingjing
+        weixin/weixin/www/js/shop.info.wmall.js                                             lujingjing
+        weixin/weixin/www/mobile/newmall/js/jquery-1.11.3.min.js                    litian
+        weixin/weixin/www/mobile/newwall/js/jquery-1.11.3.min.js                    litian
+        weixin/weixin/www/mobile/newwall/js/order_list.js                           litian
+        weixin/weixin/www/mobile/mall/js/mobileProdPage.js                                  lujingjing
+        weixin/weixin/www/mobile/dp/js/mobile_products.js                                   lujingjing
+        weixin/weixin/www/mobile/dp/js/goods_cart.js                                        lujingjing
+
+        weixin/weixin/www/mobile/newmall/css/order_virtual_goods.css                litian  lujingjing
+        weixin/weixin/www/mobile/newmall/css/order_list.css                         litian  lujingjing
+        weixin/weixin/www/mobile/newmall/css/order_info.css                         litian  lujingjing
+        weixin/weixin/www/mobile/newmall/css/order_common.css                               lujingjing
+
+    数据库字段与表：
+************************************************************************************************************************
+2015/11/2
+    增加商品描述限制长度
+    controller：
+        weixin/wx_2.0/controllers/ShopController.php
+        weixin/wx_2.0/controllers/WmallController.php
+        weixin/wx_2.0/controllers/WseckillController.php
+
+    view:
+        weixin/wx_2.0/views/shop/add_goods.tpl
+        weixin/wx_2.0/views/wmall/add_goods.tpl
+        weixin/wx_2.0/views/wseckill/add_goods.tpl
+************************************************************************************************************************
+子账号 && 添加重量：
+    controller：childgoods、（shop、wmall）：重量
+        weixin/wx_2.0/controllers/ChildgoodsController.php
+
+    view:childwmall ;select-coupon、select_goods、coupon_list、integral、add_goods（shop、wmall、childgoods）:重量
+        weixin/wx_2.0/views/childwmall/add_goods.tpl
+        weixin/wx_2.0/views/childwmall/goods_list.tpl
+
+        weixin/wx_2.0/views/wmall/coupon_list.tpl
+        weixin/wx_2.0/views/wmall/integral.tpl
+        weixin/wx_2.0/views/wmall/select_goods.tpl
+
+        weixin/wx_2.0/views/select-coupon.tpl
+
+
+    model:wxgoods
+
+************************************************************************************************************************
+拼团：
+
+总结下拼团状态：
+    拼团成功：1、参团失败 || 其他（只要不是参团成功） => 拼团失败；2、参团成功 => 拼团成功
+
+    拼团中：1、参团失败 => 拼团失败；未支付（即提交参团） => --（没状态）；参团成功 || 参团中 => 拼团中
+
+    拼团失败：=> 拼团失败
+        支付状态 == 1 || 4 => 退款；支付状态 == 5 => 查询退款
+
+    include:
+        include/CacheKey.php
+        include/GoodsOrder.php  //拼团 && log
+        include/GoogsApi.php    //log
+        include/models/WxFightGroup.php
+        include/models/WxFightGroupBase.php
+        include/models/WxFightGroupMember.php
+        include/models/WxOrder.php
+        include/BatchShipByImportStatic.php
+
+    controllers：
+        weixin/wx_2.0/controllers/FightgroupController.php
+
+        weixin/wx_2.0/controllers/ChildgoodsController.php          //log
+        weixin/wx_2.0/controllers/ChildwmallorderController.php     //log
+        weixin/wx_2.0/controllers/MobilegoodsorderController.php    //log
+
+
+        weixin/wx_2.0/controllers/ShopController.php
+        weixin/wx_2.0/controllers/WmallController.php
+
+        weixin/wx_2.0/controllers/MobilegoodsdpController.php   //自定义 && log
+
+    views:
+        weixin/wx_2.0/views/fightgroup/fight_group_order_list.tpl
+        weixin/wx_2.0/views/fightgroup/fightgroup_index.tpl
+
+        weixin/wx_2.0/views/childwmallorder/goodsorder_list.tpl
+        weixin/wx_2.0/views/shop/goodsorder_list.tpl
+        weixin/wx_2.0/views/wmall/goodsorder_list.tpl
+
+
+
+        weixin/wx_2.0/views/mobilemall/mobile_goodsorder_pay.tpl    //自定义
+
+    js:
+
+************************************************************************************************************************
+2015-11-30：活动升级
+    include:
+
+
+    controllers：
+    weixin/wx_2.0/controllers/MobilegoodsdpController.php   自定义
+    weixin/wx_2.0/controllers/ShopController.php        增加重量 && 商品管理排序与图标
+    weixin/wx_2.0/controllers/WgroupbuyController.php   增加重量
+    weixin/wx_2.0/controllers/WlimitController.php  增加重量 && log
+    weixin/wx_2.0/controllers/WmallController.php   增加重量
+    weixin/wx_2.0/controllers/WseckillController.php    增加重量 && log
+
+    views:
+    weixin/wx_2.0/views/mobilemall/mobile_goodsorder_pay.tpl 自定义
+    weixin/wx_2.0/views/wmall/add_goods.tpl 增加重量
+    weixin/wx_2.0/views/shop/add_goods.tpl  增加重量
+    weixin/wx_2.0/views/shop/goods_list.tpl 商品管理排序与图标
+    weixin/wx_2.0/views/wgroupbuy/add_goods.tpl 增加重量
+    weixin/wx_2.0/views/wlimit/add_goods.tpl    增加重量
+    weixin/wx_2.0/views/wseckill/add_goods.tpl  增加重量
+    weixin/wx_2.0/views/wmall/freight.tpl   运费样式
+    weixin/wx_2.0/views/shop/shop_freight.tpl   运费样式
+************************************************************************************************************************
+手机端订单完善
+    include：
+    include/models/WxOrder.php
+    include/models/WxOrderLog.php
+
+    controllers：
+    weixin/wx_2.0/controllers/MobilegoodsorderController.php
+    weixin/wx_2.0/controllers/ShopController.php
+    weixin/wx_2.0/controllers/WmallController.php
+
+    views：
+    weixin/wx_2.0/views/mobilemall/mobile_goodsorder_list.tpl
+    weixin/wx_2.0/views/mobilemall/mobile_goodsorder_orderinfo.tpl
+    weixin/wx_2.0/views/mobilemall/mobile_goodsorder_daifukuan.tpl
+    weixin/wx_2.0/views/mobilemall/mobile_goodsorder_not_ship.tpl
+
+************************************************************************************************************************
+字段限制
+    views：
+    weixin/wx_2.0/views/childwmall/add_goods.tpl
+    weixin/wx_2.0/views/wseckill/add_goods.tpl
+    weixin/wx_2.0/views/wsale/add_goods.tpl
+    weixin/wx_2.0/views/wmall/add_goods.tpl
+    weixin/wx_2.0/views/wlimit/add_goods.tpl
+    weixin/wx_2.0/views/shop/add_goods.tpl
+    weixin/wx_2.0/views/wgroupbuy/add_goods.tpl
+
+
+
+************************************************************************************************************************
+慢日志
+2016-1-15
+    MobilephotoController.php
+    MobilegoodsorderController.php
+
+
+
+
+
+************************************************************************************************************************
+钻展商品
+weixin/wx_2.0/controllers/ShopController.php
+weixin/wx_2.0/controllers/WmallController.php
+
+weixin/wx_2.0/views/shop/setup.tpl
+weixin/wx_2.0/views/wmall/setup.tpl
+
+weixin/www/js/shop.info.js
+weixin/www/js/shop.info.wmall.js
+
+************************************************************************************************************************
+log：
+mobilegoodsdpController.php //没有部到测试环境
+service/admin/controllers/UserController.php
+weixin/wx_2.0/controllers/ShopController.php
+weixin/wx_2.0/controllers/WmallController.php
+************************************************************************************************************************
+log-2016-2-3
+weixin/wx_2.0/controllers/MobilegoodsorderController.php
+weixin/wx_2.0/controllers/NewwallController.php
+weixin/wx_2.0/controllers/ShopController.php
+weixin/wx_2.0/controllers/WmallController.php
+
+weixin/www/js/shop.info.js
+weixin/www/js/shop.info.wmall.js
+************************************************************************************************************************
+众筹：
+include/CrowdfundingApi.php
+
+weixin/wx_2.0/controllers/CrowdfundingController.php
+
+weixin/wx_2.0/views/crowdfunding/add.tpl
+weixin/wx_2.0/views/crowdfunding/index.tpl
+weixin/wx_2.0/views/crowdfunding/crowdfunding_goods.tpl
+
+weixin/www/crowdfunding/js/crowdfunding_add.js
+
+admin：
+service/admin/controllers/CrowdfundingController.php
+
+service/admin/views/crowdfunding_index.tpl
+
+************************************************************************************************************************
+log错误2-23 - 2-29：
+weixin/wx_2.0/controllers/MobilefightgroupController.php
+weixin/wx_2.0/controllers/MobilegoodsdpController.php
+weixin/wx_2.0/controllers/MobilegoodsorderController.php
+weixin/wx_2.0/controllers/MobileorderfightgroupsController.php
+weixin/wx_2.0/controllers/ShopController.php
+weixin/wx_2.0/controllers/WgroupbuyController.php
+weixin/wx_2.0/controllers/WlimitController.php
+weixin/wx_2.0/controllers/WmallController.php
+weixin/wx_2.0/controllers/WsaleController.php
+weixin/wx_2.0/controllers/WseckillController.php
+weixin/wx_2.0/controllers/WxgoodsordermsController.php
+
+************************************************************************************************************************
+log错误3-5 - 3-7：svn
+weixin/wx_2.0/controllers/WgroupbuyController.php
+
+log错误3-8：
+weixin/wx_2.0/views/wmall/freight.tpl
+weixin/wx_2.0/views/shop/shop_freight.tpl
+
+log错误3-17：
+include/CrowdfundingApi.php
+************************************************************************************************************************
+include/backend/setting => 图片
+
+			define("APP_DOMAIN",'http://t.app.dodoca.com');
+//			define("IMG_UPLOAD","http://file.dodoca.dev");
+//			define("IMG_UPLOAD_NEW","http://file.dodoca.dev");
+//			define("IMG_DOMAIN_NEW","http://pic.dodoca.dev");
+            define("IMG_UPLOAD","http://wh.file.fenxiao.dodoca.com");
+            define("IMG_UPLOAD_NEW","http://wh.file.fenxiao.dodoca.com");
+            define("IMG_DOMAIN_NEW","http://wh.file.fenxiao.dodoca.com");
+
+************************************************************************************************************************
+会员价 PC：
+include/GoodsOrder.php
+include/models/WxDpSet.php
+include/models/WxGoods.php
+
+weixin/wx_2.0/controllers/ShopController.php
+weixin/wx_2.0/controllers/WmallController.php
+weixin/wx_2.0/controllers/ChildgoodsController.php
+
+weixin/wx_2.0/views/goodsorder_detail.tpl
+
+weixin/wx_2.0/views/shop/add_goods.tpl
+weixin/wx_2.0/views/shop/goods_list.tpl
+
+weixin/wx_2.0/views/wmall/add_goods.tpl
+weixin/wx_2.0/views/wmall/goods_list.tpl
+
+weixin/wx_2.0/views/childwmall/add_goods.tpl
+weixin/wx_2.0/views/childwmall/goods_list.tpl
+
+weixin/wx_2.0/views/childwmallorder/goodsorder_detail.tpl
+************************************************************************************************************************
+log - 2016-3-28
+weixin/wx_2.0/controllers/MobilegoodsdpController.php
+weixin/wx_2.0/controllers/MobilegoodsorderController.php
+已上传到正式环境
+************************************************************************************************************************
+log - 2016-3-29
+weixin/wx_2.0/controllers/WmallController.php
+include/CrowdfundingApi.php
+************************************************************************************************************************
+log - 2016-3-30
+weixin/wx_2.0/controllers/MobilegoodsdpController.php
+************************************************************************************************************************
+集龙珠：
+include/ActivityDragonApi.php
+include/CacheKey.php
+
+weixin/wx_2.0/controllers/PhoneactivitydragonController.php
+
+weixin/wx_2.0/views/phoneactivitydragon/get_prize.tpl
+weixin/wx_2.0/views/phoneactivitydragon/index.tpl
+
+#挂接
+weixin/lib/comm.php
+
+weixin/wx_2.0/controllers/PhoneaccessController.php
+************************************************************************************************************************
+log - 2016-4-22
+weixin/wx_2.0/controllers/MobilegoodsjpController.php
+weixin/wx_2.0/controllers/ShopController.php
+weixin/wx_2.0/controllers/WlimitController.php
+weixin/wx_2.0/controllers/WmallController.php
+weixin/wx_2.0/controllers/WseckillController.php
+
+weixin/wx_2.0/controllers/PhoneactivitydragonController.php

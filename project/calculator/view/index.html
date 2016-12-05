@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>简易计算器：失败</title>
+    <style type="text/css">
+        div{
+            border-radius: 4px;
+        }
+        body{
+            background: url("../../www/calculator/image/back-g.jpg");
+            background-size: 1602px;
+            font-size: x-large;
+            line-height: 30px;
+        }
+        body .calculator{
+            margin: 70px 550px auto auto;
+            padding: 15px 10px 15px 10px;
+            background: #563444;
+            height: 365px;
+            width: 430px;
+        }
+        body .calculator .operation{
+            background: #131313;
+            width: auto;
+            text-align: right;
+            padding: 0 10px 0 10px;
+            color: #e4e4e4;
+            line-height: 30px;
+        }
+        body .calculator .operation .formula{
+            overflow: hidden;
+            width: 410px;
+            height: 30px;
+            white-space: nowrap;
+        }
+        .blue{background: #0759ff}
+        .grey{background: #808080}
+        .red{background: #ff0e13}
+        body .calculator .button{
+            height: 235px;
+            width: auto;
+            margin: 15px 0 15px 0;
+            /*border: 1px solid #002156;*/
+        }
+        body .calculator .button .number,.operator{
+            float: left;
+            /*border: 1px solid #002156;*/
+            margin: 5px;
+            width: 47%;
+        }
+        body .calculator .button .usual div,.number div,.operator div{
+            width: 55px;
+            height: 35px;
+            text-align: center;
+            float: left;
+            margin: 0 5px 0 5px;
+            /*background: #002156;*/
+            margin: 5px;
+            cursor: pointer;
+        }
+        #num0{width: 120px}
+        body .calculator .button .operator .enter{
+            height: 80px;
+            background: red;
+            position: relative;
+            top: -45px;
+            font-size: large;
+            line-height: 75px;
+        }
+    </style>
+    <style type="text/css">
+       body .text{
+           -webkit-writing-mode: vertical-rl;
+           writing-mode:vertical-rl;
+           text-align: left;
+           float: left;
+       }
+    </style>
+</head>
+<body>
+    <div class="other">
+        <div class="text" style="position: fixed;top: 60px;left: 220px">学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎? </div>
+        <div class="else" style="white-space: nowrap;">学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知,而不愠,不亦君子乎?</div>
+        <textarea style="overflow-y: hidden;width: 199px;height: 499px;"></textarea>
+    </div>
+    <div class="calculator" style="position: fixed;top: 50px;left: 520px">
+        <div class="operation">
+            <div class="formula" contenteditable="true">3+(3+3%)</div>
+            <div class="result" is_result="no">0</div>
+        </div>
+        <div class="button">
+            <div class="usual">
+                <div class="blue" style="margin-left: 9px;">M+</div>
+                <div class="blue">M-</div>
+                <div class="blue">MR</div>
+                <div class="blue">MC</div>
+                <div class="grey" id="delOne">←</div>
+                <div class="red" id="delAll">C</div>
+            </div>
+            <div class="number">
+                <div class="grey num cin">7</div>
+                <div class="grey num cin">8</div>
+                <div class="grey num cin">9</div>
+                <div class="grey num cin">4</div>
+                <div class="grey num cin">5</div>
+                <div class="grey num cin">6</div>
+                <div class="grey num cin">1</div>
+                <div class="grey num cin">2</div>
+                <div class="grey num cin">3</div>
+                <div class="grey num cin" id="num0">0</div>
+                <div class="grey cin numPoint">.</div>
+            </div>
+            <div class="operator">
+                <div class="blue unaryOperator cin" id="minus">(-)</div>
+                <div class="blue limitOperator cin" id="left">(</div>
+                <div class="blue limitOperator cin" id="right">)</div>
+                <div class="blue unaryOperator cin" id="percent">%</div>
+                <div class="blue unaryOperator cin" id="radical">√</div>
+                <div class="blue unaryOperator cin" id="square">X^2</div>
+                <div class="blue binaryOperator cin" id="multiply">*</div>
+                <div class="blue binaryOperator cin" id="expect">/</div>
+                <div class="blue binaryOperator cin" id="add" style="clear: both">+</div>
+                <div class="blue binaryOperator cin" id="reduce">-</div>
+                <div class="enter" id="equal">Enter</div>
+            </div>
+        </div>
+        <div class="sign" style="position: relative;left: 155px;top: -20px;font-size: medium;line-height: 30px;"> <a href="#">@author:litian</a> </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../www/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../../www/calculator/js/newOperatorLimit.js"></script>
+<script type="text/javascript" src="../../www/calculator/js/calculator.js"></script>
+<script type="text/javascript" src="../../www/js/decimal.js"></script>
+<script type="text/javascript">
+    console.log(3.00+3.03);
+    //删除一个字符串
+    $("#delOne").click(function(){
+
+        var a = 0.03,
+                b = 0.36;
+        var result = Decimal(1).div(7).toNumber();
+        var res = Decimal(result).mul(7).toNumber();
+
+        console.log(Decimal(res).toNumber());
+
+        var formulaText = $(".formula").text();
+        if(formulaText != "0"){
+            if(formulaText.length != 1) {
+                $(".formula").text(formulaText.substr(0, formulaText.length - 1));
+            }else{
+                $(".formula").text("0");
+            }
+        }
+    });
+
+    //删除整个字符串
+    $("#delAll").click(function(){
+        $(".formula").text("0");
+    });
+
+    $(".cin").attr('onclick', 'cin(this)');
+
+    //输入数据：这里只是简单做了限制，详细限制参考operator.js文件的内容
+    function cin($this) {
+        var formulaText = $(".formula").text(),
+                data = $($this).text(),
+                isResult = $(".result").attr('is_result');
+        //如果已经计算了，在输入数据时会清空之前输入的字符
+        if(isResult == "yes"){
+            $(".formula").text('0');
+            $(".result").attr('is_result', 'no')
+            cin($this);
+            return false;
+        }
+        //限制总共输入的字符长度
+        if (formulaText.length <= 255) {
+            //文本为0时输入任何数据都不显示0
+            if(formulaText == "0"){
+                $(".formula").text(data);
+                return false;
+            }
+            //如果是数字直接输入
+            if($($this).hasClass('num')) {
+                if(formulaText == "0"){
+                    $(".formula").text(data);
+                    return false;
+                }
+            }else if($($this).hasClass('binaryOperator')){
+                //运算符只能在数字与右括号后面
+                var last = formulaText.substr(formulaText.length-1);
+                var flag = "0123456789%)";
+                if(flag.indexOf(last) == -1){
+                    return false;
+                }
+            }
+            $(".formula").text(formulaText + data);
+        }
+    }
+
+    //计算
+    $("#equal").click(function(){
+        $(".result").attr('is_result', 'yes');
+        var formulaText = $(".formula").text();
+        var operator = new Array();
+        var num = '',
+                f = 0;
+        //将字符串处理成数组
+        for(var i = 0; i < formulaText.length; i++)
+        {
+            var temp = formulaText.substr(i,1);
+            //是数字就字符串连接，否就作为另一个元素
+            if(/^\d+$/.test(temp) || temp == "."){
+                var number = num + temp;
+                num = number;
+                operator[f] = num;
+            }else{
+                //判断是否是第一个元素：这里处理考虑了可以在数字前的运算符
+                if(num != ''){
+                    f++;
+                    operator[f] = temp;
+                }else{
+                    operator[f] = temp;
+                }
+                f++;
+                num = '';
+            }
+        }
+        //处理数组并计算其值
+        var newOperator = dealArray(operator);
+        var lastOperator = getCalculatorOperator(newOperator);
+        $(".result").text(lastOperator);
+    });
+</script>
+</html>

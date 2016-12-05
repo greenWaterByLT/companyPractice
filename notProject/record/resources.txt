@@ -1,0 +1,31 @@
+电商：
+include/GoodsOrder.php
+
+weixin/wx_2.0/controllers/WmallController.php   订单导出
+weixin/wx_2.0/controllers/ShopController.php    订单导出
+
+weixin/wx_2.0/controllers/MobilegoodsorderController.php    删除取消订单
+
+weixin/wx_2.0/views/wmall/goodsorder_list.tpl   订单导出
+weixin/wx_2.0/views/shop/goodsorder_list.tpl    订单导出
+
+商品：预约
+weixin/wx_2.0/views/wmall/goods_preview.tpl
+weixin/wx_2.0/views/shop/goods_preview.tpl
+weixin/wx_2.0/views/wmall/goods_detail.tpl
+weixin/wx_2.0/views/shop/goods_detail.tpl
+
+weixin/wx_2.0/views/wseckill/goods_detail.tpl
+weixin/wx_2.0/views/wlimit/goods_detail.tpl
+weixin/wx_2.0/views/wgroupbuy/goods_detail.tpl
+weixin/wx_2.0/views/childwmall/goods_detail.tpl
+
+
+拼团：
+weixin/wx_2.0/controllers/FightgroupController.php  订单导出
+weixin/wx_2.0/views/exportLT.tpl    订单导出
+
+门店自提，地址排序
+weixin/wx_2.0/controllers/MobilegoodsdpController.php
+weixin/wx_2.0/views/mobilemall/mobile_index_1.tpl
+weixin/wx_2.0/views/mobilemall/mobile_index_2.tpl

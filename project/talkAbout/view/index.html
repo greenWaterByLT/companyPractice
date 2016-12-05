@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>微博说说</title>
+    <style type="text/css">
+        body{
+            background-image: url("../../www/talkAbout/image/bg.png");
+            padding-left: 300px;
+            padding-top: 10px;
+            font-size: 14px;
+        }
+        /* talkAbout */
+        body .talkAbout{
+            width: 75%;
+            height: auto;
+            /*border: 1px solid #ff64cc;*/
+            padding: 3px;
+        }
+
+        body .talkAbout p{
+            line-height: 10px;
+            font-weight: normal;
+            font-style: normal;
+            color: #999;
+        }
+        body .talkAbout .talkContent{
+            border: 1px solid #6bdbda;
+            width: 550px;
+            height: 70px;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 14px;
+        }
+        body .talkAbout .talkContent .input{
+            width: 550px;
+            height: 70px;
+            overflow-y: auto;
+        }
+        body .talkAbout .clickInput{
+            transition:border linear .2s,box-shadow linear .5s;
+            border-color: #d0aeff;
+            box-shadow:0 0 18px #d0aeff;
+            height: 85px;
+            margin-bottom: 15px;
+        }
+        body .talkAbout .talkAboutBottomP{
+            font-style: normal;
+            font-size: 15px;
+            color: #999;
+            text-align: right;
+            /*margin-right: 10px;*/
+            position: relative;
+            top: -10px;
+        }
+        body .talkAbout .operationList{
+            width: 550px;
+            height: 40px;
+            margin-top: 5px;
+            /*border: 1px solid #000000;*/
+        }
+        body .talkAbout .operationList img{
+            width: 22px;
+            height: 22px;
+            margin: 10px 0 0 10px;
+        }
+        body .talkAbout .operationList .button{
+            width: 100px;
+            height: 30px;
+            border: 1px solid #666600;
+            float: right;
+            margin: 5px 10px 0 0;
+            text-align: center;
+            background-color: red;
+            border-radius: 3px;
+        }
+        body .talkAbout .operationList .button span{
+            line-height: 30px;
+            font-weight: bolder;
+        }
+        /* expression */
+        body .expression{
+            width: 300px;
+            height: 150px;
+            border: 1px solid #0000ff;
+            position: relative;
+            top: 0px;
+            left: 15px;
+            overflow: auto;
+        }
+        body .expression img{
+            margin: 10px 0 0 10px;
+        }
+        /* content */
+        .content ul.title{
+            margin-left: -40px;
+        }
+        .content ul.title li{
+            list-style: none;
+            float: left;
+            padding: 2px 5px;
+        }
+        .content ul .titleSelected {
+            border-bottom: 3px solid #0000cc;
+        }
+        .content .line{
+            border-top: 1px solid #a6a6a6;
+            position: relative;
+            top: 26px;
+            width: 570px;
+        }
+
+        .content .userData{
+            margin-top: 30px;
+        }
+        .content .userData .oneUserData{
+            margin: 60px 15px 20px 15px;
+        }
+        .content .userData .oneUserData .picture{
+            float: left;
+        }
+        .content .userData .oneUserData .words{
+            width: 550px;
+            margin: 10px 65px;
+        }
+        .content .userData .oneUserData .words div.left{
+            width: 250px;
+            float: left;
+        }
+        .content .userData .oneUserData .words div.right{
+            float: left;
+            position: relative;
+            left: 125px;
+            width: 150px;
+        }
+        .content .userData .oneUserData .words div.left a{
+            margin: 0 2px;
+        }
+        .content .userData .oneUserData .words div.right a{
+            margin: 0 3px;
+        }
+    </style>
+</head>
+<body>
+<div class="talkAbout">
+    <p>说说</p>
+<!-- 说说发表框start -->
+    <div class="talkContent">
+        <div class="input" contenteditable="true">
+            辐射带动当地司法所发送到<br>
+            风格豆腐干豆腐干豆腐干
+        </div>
+        <p class="talkAboutBottomP"></p>
+    </div>
+    <div class="operationList">
+        <img class="expressionClick" src="../../www/talkAbout/image/bba_thumb.gif" onmouseover="onMouseOver(this)" onmouseout="onMouseOut(this)" />
+        <img class="camera" src="../../www/talkAbout/image/camera_thumb.gif" onmouseover="onMouseOver(this)" onmouseout="onMouseOut(this)" />
+        <img class="clock" src="../../www/talkAbout/image/clock_thumb.gif" onmouseover="onMouseOver(this)" onmouseout="onMouseOut(this)" />
+        <div class="button">
+            <span class="putOn">发表</span>
+        </div>
+    </div>
+<!-- 说说发表框end -->
+
+<!-- 说说已发表的内容框start -->
+    <div class="content">
+        <ul class="title">
+            <li class="titleSelected">全部说说</li>
+            <li>精选说说</li>
+        </ul>
+        <div class="line"></div>
+        <div class="userData">
+            <div class="oneUserData">
+                <div class="picture">
+                    <img src="../../www/talkAbout/image/personPicture.jpg" width="50" height="50" alt="no picture"/>
+                </div>
+                <div class="words">
+                    <div class="top">
+                        <h3 class="name">litian</h3>
+                        <p>dfghjkl;'lkjhfdstyuiopp[;;lkjhhgfdfghjkl;lkjhgghjkl;'</p>
+                    </div>
+                    <div class="bottom">
+                        <div class="left">
+                            <a href="#">今天 14:19</a>
+                            <a href="#">全部转播和评论(29)</a>
+                        </div>
+                       <div class="right">
+                           <a href="#">转播</a>
+                           <a href="#">评论</a>
+                           <a href="#">收藏</a>
+                       </div>
+                    </div>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="oneUserData">
+                <div class="picture">
+                    <img src="../../www/talkAbout/image/personPicture_1.jpg" width="50" height="50" alt="no picture"/>
+                </div>
+                <div class="words">
+                    <div class="top">
+                        <h3 class="name">litian</h3>
+                        <p>dfghjkl;'lkjhfdstyuiopp[;;lkjhhgfdfghjkl;lkjhgghjkl;'</p>
+                    </div>
+                    <div class="bottom">
+                        <div class="left">
+                            <a href="#">今天 14:19</a>
+                            <a href="#">全部转播和评论(29)</a>
+                        </div>
+                        <div class="right">
+                            <a href="#">转播</a>
+                            <a href="#">评论</a>
+                            <a href="#">收藏</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="oneUserData">
+                <div class="picture">
+                    <img src="../../www/talkAbout/image/personPicture_2.jpg" width="50" height="50" alt="no picture"/>
+                </div>
+                <div class="words">
+                    <div class="top">
+                        <h3 class="name">litian</h3>
+                        <p>dfghjkl;'lkjhfdstyuiopp[;;lkjhhgfdfghjkl;lkjhgghjkl;'</p>
+                    </div>
+                    <div class="bottom">
+                        <div class="left">
+                            <a href="#">今天 14:19</a>
+                            <a href="#">全部转播和评论(29)</a>
+                        </div>
+                        <div class="right">
+                            <a href="#">转播</a>
+                            <a href="#">评论</a>
+                            <a href="#">收藏</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="line"></div>
+        </div>
+    </div>
+<!-- 说说已发表的内容框end -->
+</div>
+<!-- 表情包-start -->
+<div class="expression" style="display: none;">
+    <img src="../../www/talkAbout/image/88_thumb.gif" /> <img src="../../www/talkAbout/image/angrya_thumb.gif" />
+    <img src="../../www/talkAbout/image/bba_thumb.gif" /> <img src="../../www/talkAbout/image/boboshengmenqi_thumb.gif" />
+    <img src="../../www/talkAbout/image/bofubianlian_thumb.gif" /> <img src="../../www/talkAbout/image/clock_thumb.gif" />
+    <img src="../../www/talkAbout/image/bs_thumb.gif" /> <img src="../../www/talkAbout/image/bs2_thumb.gif" />
+    <img src="../../www/talkAbout/image/bz_thumb.gif" /> <img src="../../www/talkAbout/image/cake.gif" />
+    <img src="../../www/talkAbout/image/camera_thumb.gif" /> <img src="../../www/talkAbout/image/cat_yunqizhong_thumb.gif" />
+    <img src="../../www/talkAbout/image/cat_yunqizhong_thumb.gif" /> <img src="../../www/talkAbout/image/cf_thumb.gif" />
+    <img src="../../www/talkAbout/image/chn_buyaoya_thumb.gif" /> <img src="../../www/talkAbout/image/cj_thumb.gif" />
+    <img src="../../www/talkAbout/image/come_thumb.gif" /> <img src="../../www/talkAbout/image/cool_thumb.gif" />
+    <img src="../../www/talkAbout/image/crazya_thumb.gif" /> <img src="../../www/talkAbout/image/cry.gif" />
+    <img src="../../www/talkAbout/image/cza_thumb.gif" /> <img src="../../www/talkAbout/image/daxiongleibenxiong_thumb.gif" />
+    <img src="../../www/talkAbout/image/dizzya_thumb.gif" /> <img src="../../www/talkAbout/image/fuyun_thumb.gif" />
+    <img src="../../www/talkAbout/image/gbzkun_thumb.gif" /> <img src="../../www/talkAbout/image/geili_thumb.gif" />
+    <img src="../../www/talkAbout/image/good_thumb.gif" /> <img src="../../www/talkAbout/image/gza_thumb.gif" />
+    <img src="../../www/talkAbout/image/h_thumb.gif" /> <img src="../../www/talkAbout/image/hatea_thumb.gif" />
+    <img src="../../www/talkAbout/image/hearta_thumb.gif" /> <img src="../../www/talkAbout/image/heia_thumb.gif" />
+    <img src="../../www/talkAbout/image/horse2_thumb.gif" /> <img src="../../www/talkAbout/image/hsa_thumb.gif" />
+    <img src="../../www/talkAbout/image/hufen_thumb.gif" /> <img src="../../www/talkAbout/image/j_thumb.gif" />
+    <img src="../../www/talkAbout/image/k_thumb.gif" /> <img src="../../www/talkAbout/image/kbsa_thumb.gif" />
+    <img src="../../www/talkAbout/image/kl_thumb.gif" /> <img src="../../www/talkAbout/image/laugh.gif" />
+    <img src="../../www/talkAbout/image/lazu_thumb.gif" /> <img src="../../www/talkAbout/image/ldln_thumb.gif" />
+    <img src="../../www/talkAbout/image/liwu_thumb.gif" /> <img src="../../www/talkAbout/image/lovea_thumb.gif" />
+</div>
+<!-- 表情包-end -->
+</body>
+<script type="text/javascript" src="../../www/talkAbout/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(".talkContent").click(function(){
+        $(".talkContent").addClass('clickInput');
+        $(".talkAboutBottomP").text("aaaa");
+    });
+
+    $(".input").blur(function(){
+        $(".talkContent").removeClass('clickInput');
+        $(".talkAboutBottomP").text("");
+    });
+
+
+
+    $(".operationList img").attr('onmouseover', 'onMouseOver(this)');
+    $(".operationList img").attr('onmouseout', 'onMouseOut(this)');
+    $(".expression img").attr('click', 'imageAdd(this)');
+
+    $(".operationList .expressionClick").click(function(){
+        var style = $(".expression").attr('style');
+        if(style == 'display: none;')
+        {
+            $(".expression").attr('style', 'display: block;');
+        }
+        else if(style == 'display: block;')
+        {
+            $(".expression").attr('style', 'display: none;');
+        }
+    });
+
+    function imageAdd($this)
+    {
+        $(".expression").attr('style', 'display: none;');
+        var src = $($this).attr('src');
+        var html = '<img src="' + src + '" />';
+        html = "sdadsasd";
+        insertHTML(html);
+    }
+
+    function onMouseOver($this)
+    {
+        $($this).attr('style', 'margin: 9px -1px -1px 9px;border: 1px solid #000000;')
+    }
+
+    function onMouseOut($this)
+    {
+        $($this).attr('style', 'margin: 10px 0 0 10px;')
+    }
+
+    function insertHTML(html)
+    {
+//        var dthis=$("#div3")[0];//要插入内容的某个div,在标准浏览器中 无需这句话
+        var sel, range;
+        if (window.getSelection)
+        {
+            sel = window.getSelection();
+            if (sel.getRangeAt && sel.rangeCount) {
+                range = sel.getRangeAt(0);
+                range.deleteContents();
+                var el = document.createElement('div');
+                el.innerHTML = html;
+                var frag = document.createDocumentFragment(), node, lastNode;
+                while ( (node = el.firstChild) )
+                {
+                    lastNode = frag.appendChild(node);
+                }
+                range.insertNode(frag);
+                if (lastNode) {
+                    range = range.cloneRange();
+                    range.setStartAfter(lastNode);
+                    range.collapse(true);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
+            }
+        }
+        else if (document.selection && document.selection.type !='Control')
+        {
+            $(dthis).focus(); //在非标准浏览器中 要先让你需要插入html的div 获得焦点
+            ierange= document.selection.createRange();//获取光标位置
+            ierange.pasteHTML(html); //在光标位置插入html 如果只是插入text 则就是fus.text="..."
+            $(dthis).focus();
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,772 @@
+2015-9-23 && 2015-9-28
+************************************************************************************************************************
+修改文件：
+1、【已上传】错误的SQL语句:[weixin2014] SELECT is_integral FROM wx_goods WHERE id in ()
+    MobilegoodsdpController.php => cartaccountAction:对$productStr进行了非空判断
+
+2、【未上传】PHP Warning:  implode()；Invalid arguments passed in
+    MobilegoodsdpController.php => cartaccountAction：对$prodcutIdArray进行了非空判断
+
+3、【未上传】错误的SQL语句:[weixin2014] UPDATE `wx_club_card_exchange_subtabulation` SET  `holdtime`='1443440461' WHERE  id =1433797_5_10.0
+    MobilegoodsdpController.php => cartcreateorderAction：增加if($_POST["coupons_type"] != 1){......}的判断
+
+                                => cartcreateorderAction：增加if($_POST["coupons_type"] != 1) {
+                                                                   $fanid = $_POST['fancoupons_type'];
+                                                                   if ($fanid != 0) {
+                                                                       $fanid = explode("_", $fanid);
+                                                                       $fancoupons_type = $fanid[0];
+                                                                   }
+                                                                   ......
+                                                              }
+    注：有insert与update两个部分都增加了
+
+4、【未上传】错误的SQL语句:[weixin2014] UPDATE `wx_dp_set` SET  `template_index`='undefined', `is_custom`='1' WHERE ( `userid` = '154483' ) AND ( `type` = '1' )
+   WmallController.php => updateTplAction：增加
+   if ($id === "undefined") {
+       $id = 1;
+   }
+    判断（wx_dp_set表中字段‘template_index’ varchar 4；字段‘is_custom’ tinyint 1）
+
+5、【不管】错误的SQL语句:[weixin2014] UPDATE `wx_dp_set_banner` SET  `banner_link`='0', `pk_id`='0', `link_type`='0' WHERE id=[[banner2id]] and userid=155393
+    ShopController.php => dellinkAction：
+
+6、【不管】错误的SQL语句:[weixin2014] select  from_type from wx_order where id=135155?_t=t limit 1
+    mobilegoodsorderController.php => orderinfoAction：
+
+########################################################################################################################
+2015-9-29
+************************************************************************************************************************
+修改：
+1、【未上传】错误的SQL语句:[weixin2014] UPDATE `wx_dp_set_daifu` SET  `status`='-1' WHERE  id=
+    WmallController.php => deletedaifuAction：增加对id是否为空的判断if(!empty($id)) {....}else{$nums = "";}
+
+########################################################################################################################
+2015-10-9
+************************************************************************************************************************
+修改：
+1、错误的SQL语句:[weixin2014] INSERT INTO `wx_goods` （/shop/addgoodsdp	1264	Out of range value for column 'stock' at row 1）
+    ShopController.php => addgoodsdpAction:增加
+    if(strlen($_POST['stock']) > 16){
+                    echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+                    echo "<script type='text/javascript'>alert('商品数量超过限制！');window.history.back(-1);</script>";
+                    exit;
+                };
+    shop/add_goods.tpl => java:增加
+     if(stock.length > 16){
+            alert("商品数量超过限制！");
+            return false;
+        }
+
+########################################################################################################################
+2015-10-10
+************************************************************************************************************************
+修改：
+1、Division by zero in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/WmallController.php on line 610
+    WmallController.php => cuttingpicturegoodsAction:   if(!empty($_POST ['reducedwidth'])) {
+                                                                 ......
+                                                             }else {
+                                                                 echo 0;
+                                                             }
+
+2、strlen() expects parameter 1 to be string, array given in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/MobilegoodsdpController.php on line 1622
+    MobilegoodsdpController.php => createorderAction;cartcreateorderAction: if(strlen($setDataEl["value"]) > 90){...}
+
+########################################################################################################################
+2015-10-12
+************************************************************************************************************************
+修改：
+1、Invalid argument supplied for foreach() in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/MobilegoodsorderController.php on line 1390
+    MobilegoodsorderController.php => orderinfoAction：上面的foreach也加了 if(!empty($hash['payment'])) {
+                                                                              ...
+                                                                          }
+
+*修改错误，错误是end没有获取时间，只有日期，属于传值错误，此处不应该改正，
+另，用strtotime方法是要另取变量，不要在入数据库是直接用（2015-12-14，此刻已经改好了-editAuthor:luoqin）*
+2、[weixin2014] select count(*) as c from wx_order where (  userid=151302 and order_status != -1 and  cdate>= and (from_type = 2 or from_type = 16) and pay_status = 1) or (  userid=151302 and order_status != -1 and  cdate>= and pay_type=12 and from_type=12 and pay_status=1)
+    GoodsOrder.php => showgoodsorderlist:多个地方同样更改                   if (isset($_GET["end"]) && $_GET["end"]) {
+                                                                                $endTimeTemp = strtotime($_GET["end"] . " 23:59:59");
+                                                                                if(!empty($endTimeTemp)) {
+                                                                                   ...
+                                                                                }
+                                                                            }
+
+########################################################################################################################
+2015-10-15
+************************************************************************************************************************
+修改：
+1、/mobilegoodsdp/return-award-url	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit 1' at line 1		错误的SQL语句:[weixin2014] select  is_reward,cdate,pay_status,is_receive from wx_order  where id= limit 1
+    MobilegoodsdpController.php => returnAwardUrlAction：新增   if(!empty($orderId)) {
+                                                                    ...
+                                                                }else{
+                                                                    $tempData = array('url' => '');
+                                                                }
+
+    MobilegoodsorderController.php => orderinfoAction:新增
+                                                            ...
+                                                            $fxuserid = base64_encode(PubFun::encrypt($_SESSION['clubdata']['userid'], 'E'));;
+                                                            header("Location:/mobilegoodsorder/goodsorderindex?fromtype=".$fromtype."&fxuserid=".$fxuserid);
+                                                            ...
+
+########################################################################################################################
+2015-10-19
+************************************************************************************************************************
+修改：
+1、	19:54:10> [2015-10-17 19:54:10] 	/wseckill/addgoods?type=edit&id=175522	1406	Data too long for column 'desc' at row 1	type=edit&id=175522	错误的SQL语句:[weixin2014] INSERT INTO `wx_goods_ms_mgt` (`userid`,`goods_id`,`initial_number`,`is_instant`,`id_limit_by`,`show_time`,`notes_use`,`desc`) VALUES ('156802','175522','10','1','5','10','<p style=\"font-family:sans-serif;font-size:16px;white-space:normal;clear:both;line-height:2em;\">
+    wmall/new_category.tpl => 新增(两个部分)      //litian-edit-2015-10-19
+                                                  var share1 = $("#share1").val(),
+                                                          content1 = $("#content1").val();
+                                                  if(share1.length > 100){
+                                                      alert("分享标题字符长度超过限制！");
+                                                      return false;
+                                                  }
+                                                  if(content1.length > 255){
+                                                      alert("分享内容字符长度超过限制！");
+                                                      return false;
+                                                  }
+                                                  //litian-end
+
+    wmallController.php => 新增               //litian-edit-2015-10-19
+                                             if(!empty($model['share']) && strlen($model['share']) > 100){
+                                                 echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+                                                 echo '<script>alert("分享标题的字符长度超过限制！");</script>';
+                                                 echo '<script>window.location.href = "/wmall/listcategory";</script>';
+                                                 exit;
+                                             }
+
+                                             if(!empty($model['content']) && strlen($model['content']) > 255){
+                                                 echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+                                                 echo '<script>alert("分享内容的字符长度超过限制！");</script>';
+                                                 echo '<script>window.location.href = "/wmall/listcategory";</script>';
+                                                 exit;
+                                             }
+                                             //litian-end
+
+2、	19:52:29> [2015-10-17 19:52:29] 	/wseckill/addgoods	1406	Data too long for column 'desc' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_goods_ms_mgt` (`userid`,`goods_id`,`initial_number`,`is_instant`,`id_limit_by`,`show_time`,`notes_use`,`desc`) VALUES ('156802','175522','10','1','1','10','','<p style=\"clear:both;font-family:sans-serif;font-size:15.555556297302246px;line-height:normal;white-space:normal;\">
+    WseckillController.php => 新增       //litian-edit-2015-10-19
+                                         if(!empty($data_ms['desc']) && strlen($data_ms['desc']) > 10000){
+                                             echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+                                             echo '<script>alert("商品描述的字符长度超过限制！");</script>';
+                                             echo '<script> window.history.back(-1);</script>';
+                                             exit;
+                                         }
+                                         //litian-end
+
+    Wseckill/add_goods.tpl => 新增   var editor_id = $("#editor_id").val();
+                                    if(editor_id.length > 10000){
+                                        alert("商品描述长度超过限制！");
+                                        return false;
+                                    }
+
+    注：同问题有wmall，shop更改
+
+########################################################################################################################
+2015-10-20
+
+更改之前表情问题：
+    3、/mobilegoodsdp/createorder	1366	Incorrect string value: '\xF0\x9F\x98\x98' for column 'remark' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_order` (`order_no`,`total_amount`,`order_amount`,`from_type`,`pay_type`,`pay_status`,`cdate`,`userid`,`openid`,`spread_userid`,`remark`,`over_time`,`order_status`,`integrall`,`integrall_sum`,`is_receive`,`post_free`,`come_from`) VALUES ('239940598927','100','100.00','2','9','0','1442989136','130815','23006024','0','谢谢亲爱的??','1442992736','1','0','0','1','0','0')
+    mobilegoodsdpController => createorderAction(创建订单的两个地方都增加)
+                                    $data_order['remark'] = ToolString::filter_emoji($data_order['remark']);
+
+************************************************************************************************************************
+修改：
+1、	15:31:32> [2015-10-19 15:31:32] 	/wmall/goodslist?name=kose+%E9%AB%98%E4%B8%9D+%E6%AE%BF%E5%A0%82%E7%BA%A7Je+l%27aime%E6%97%A0%E7%A1%85%E6%8A%A4%E5%8F%91%E7%B4%A0+500ml++%E7%B2%89%E8%89%B2&cid=0&finish_status=0&price_start=&price_end=	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'aime无硅护发素 500ml  粉色%'' at line 1	name=kose+%E9%AB%98%E4%B8%9D+%E6%AE%BF%E5%A0%82%E7%BA%A7Je+l%27aime%E6%97%A0%E7%A1%85%E6%8A%A4%E5%8F%91%E7%B4%A0+500ml++%E7%B2%89%E8%89%B2&cid=0&finish_status=0&price_start=&price_end=	错误的SQL语句:[weixin2014] select g.id from wx_goods g  where g.userid = 146475 and g.status = 1 and g.types = 1 and g.name like '%kose 高丝 殿堂级Je l'aime无硅护发素 500ml  粉色%'
+    wmallController.php => goodslistAction 新增 $name = str_replace("'", '', $name);过滤单引号
+
+2、	15:57:07> [2015-10-19 15:57:07] 	/mobilegoodsdp/createorder	1062	Duplicate entry '0' for key 'orderid_index'		错误的SQL语句:[weixin2014] INSERT INTO `wx_order_logistics` (`order_id`,`post_id`,`status`,`cdate`) VALUES ('0','117551','1','1445241427')
+
+  	16:04:42> [2015-10-19 16:04:42] 	/mobilegoodsdp/createorder	1264	Out of range value for column 'total_amount' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_order` (`order_no`,`total_amount`,`order_amount`,`from_type`,`pay_type`,`pay_status`,`cdate`,`userid`,`openid`,`spread_userid`,`remark`,`over_time`,`order_status`,`integrall`,`integrall_sum`,`is_receive`,`post_free`,`come_from`) VALUES ('192006934569','500000000','500000000','2','9','0','1445241882','155733','22989749','0','','1445328282','1','0','0','1','0','0')
+    相同问题：
+    MobilegoodsdpController.php => cartcreateorderAction(创建订单的两个方法) 新增      if($data_order['total_amount'] >= 100000000 || $data_order['order_amount'] >= 100000000){
+                                                                                          echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+                                                                                          echo '<script>alert("订单应付金额或订单总金额超过限制！");</script>';
+                                                                                          $location_url = "/" . $_SESSION['clubdata']['userid'] . "/mobilegoodsdp/index";
+                                                                                          echo "<script>window.location.href = '$location_url';</script>";
+                                                                                          exit;
+                                                                                       }
+
+3、	16:03:25> [2015-10-19 16:03:25] 	/shop/addgoodsdp	1264	Out of range value for column 'stock' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_goods` (`userid`,`cid`,`types`,`name`,`pic_id`,`introduction`,`share`,`original_price`,`present_price`,`is_virtua`,`coupon_id`,`start_time`,`end_time`,`stock`,`finish_status`,`cdate`,`udate`,`labelid`,`is_integral`,`unit`) VALUES ('146403','33980','1','冶金','80274683','冶金门诊','','1','1','1','0','1445184000','1601481600','99999999999999999999','1','1445241805','1445241805','0','0','件')
+     shopController.php => addgoodsdpAction 新增          if(!empty($data ['stock']) && strlen($data ['stock']) > 16){
+     wmallController.php => addgoodsAction  同样              echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+                                                              echo '<script>alert("商品数量超过限制！");</script>';
+                                                              echo '<script> window.history.back(-1);</script>';
+                                                              exit;
+                                                          }
+     add_goods.tpl(shop/wmall)新增//litian-start
+                                    if(stock.length > 16){
+                                        alert("商品数量超过限制！");
+                                        return false;
+                                    }
+                                    //litian-end
+
+########################################################################################################################
+2015-10-20
+************************************************************************************************************************
+修改：
+1、	10:25:38> [2015-10-20 10:25:38] 	/wmall/addgoods	1264	Out of range value for column 'original_price' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_goods` (`userid`,`cid`,`types`,`name`,`pic_id`,`introduction`,`share`,`original_price`,`present_price`,`is_virtua`,`coupon_id`,`stock`,`finish_status`,`cdate`,`udate`,`labelid`,`sort`,`is_integral`,`unit`) VALUES ('148018','34041','1','白加银001餐边柜','80351829','','白加银001餐边柜','999999999999999999','999999999999999999','2','0','99999999999999','2','1445307938','1445307938','0','0','0','件')
+  	shopController.php => addgoodsdpAction 新增          if(!empty($data ['original_price']) && strlen($data ['original_price']) > 100000000){
+                                                                       echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+    wmallController.php => addgoodsAction  同样                        echo '<script>alert("商品原价金额超过限制！");</script>';
+                                                                       echo '<script> window.history.back(-1);</script>';
+                                                                       exit;
+                                                                   }
+                                                                   if(!empty($data ['present_price']) && strlen($data ['present_price']) > 100000000){
+                                                                       echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+                                                                       echo '<script>alert("商品优惠价金额超过限制！");</script>';
+                                                                       echo '<script> window.history.back(-1);</script>';
+                                                                       exit;
+                                                                   }
+
+
+    add_goods.tpl(shop/wmall)新增         if(original_price > 100000000){
+                                                alert("商品原价金额超过限制！");
+                                                return false;
+                                          }
+                                          if(present_price > 100000000){
+                                                alert("商品优惠价金额超过限制！");
+                                                return false;
+                                          }
+
+2、	16:39:01> [2015-10-20 16:39:01] 	/wmall/addgoods?type=edit&id=176478	1366	Incorrect string value: '\xF0\x9F\x8C\xB0\xE8\x83...' for column 'desc' at row 1	type=edit&id=176478	错误的SQL语句:[weixin2014] UPDATE `wx_goods_dp_mgt` SET  `showcase`='2', `notes_use`='', `desc`='<p>
+    wmallController.php => addgoodsAction(shop/wmall)
+                                        $data_dp['desc'] = ToolString::filter_emoji($data_dp['desc']);
+
+########################################################################################################################
+2015-10-20
+************************************************************************************************************************
+修改：
+1、	17:00:16> [2015-10-23 17:00:16] 	/wmall/goodslist?name=%E8%8C%83%E5%86%B0%E5%86%B0&cid=0&finish_status=0&price_start=sgsg&price_end=%E4%B8%89%E7%AD%89%E5%8A%9F	1054	Unknown column 'sgsg' in 'where clause'	name=%E8%8C%83%E5%86%B0%E5%86%B0&cid=0&finish_status=0&price_start=sgsg&price_end=%E4%B8%89%E7%AD%89%E5%8A%9F	错误的SQL语句:[weixin2014] select g.id from wx_goods g  where g.userid = 154180 and g.status = 1 and g.types = 1 and g.name like '%范冰冰%' and g.present_price >= sgsg and g.present_price <= 三等功
+            wmallController.php => goodslistAction 新增   if (isset ($_GET ['price_start']) && is_numeric($_GET ['price_start']) && is_numeric($_GET ['price_end']) && $_GET ['price_start'] >= '0' && isset ($_GET ['price_end']) && $_GET ['price_end'] >= '0' && $_GET ['price_start'] > $_GET ['price_end']) {
+                                                              $temp = $_GET ['price_end'];
+            主要加了判断价格是否为数字                         $_GET ['price_end'] = $_GET ['price_start'];
+                                                              $_GET ['price_start'] = $temp;
+                                                          }
+                                                          if (isset ($_GET ['price_start']) && is_numeric($_GET ['price_start']) && $_GET ['price_start'] >= '0') {
+                                                              $price_start = $_GET ['price_start'];
+                                                              $hash ['price_start'] = $price_start;
+                                                              $where .= " and g.present_price >= $price_start";
+                                                              $query_data ['price_start'] = $price_start;
+                                                          }
+                                                          if (isset ($_GET ['price_end']) && is_numeric($_GET ['price_end']) && $_GET ['price_end'] >= '0') {
+                                                              $price_end = $_GET ['price_end'];
+                                                              $hash ['price_end'] = $price_end;
+                                                              $where .= " and g.present_price <= $price_end";
+                                                              $query_data ['price_end'] = $price_end;
+                                                          }
+
+
+
+########################################################################################################################
+2015-10-28
+************************************************************************************************************************
+修改：
+1、21:29:27> [2015-10-26 21:29:27] 	/wseckill/addgoods	1366	Incorrect string value: '\xE7\x82\xB9\xE4\xBA\x8C...' for column 'desc' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_goods_ms_mgt` (`userid`,`goods_id`,`initial_number`,`is_instant`,`id_limit_by`,`show_time`,`delivery_time`,`notes_use`,`desc`) VALUES ('156802','181863','5','0','1','50','0','<legend style=\"margin:0px 10px;padding:0px;max-width:100%;box-sizing:border-box !important;word-wrap:break-word !important;\">
+            wseckillController.php => addgoodsAction 新增    $data_ms['desc'] = ToolString::filter_emoji($data_ms['desc']);
+
+########################################################################################################################
+2015-10-30
+************************************************************************************************************************
+修改：
+1、	[29-Oct-2015 18:11:11 Asia/Shanghai] PHP Fatal error:  Cannot use object of type stdClass as array in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/MobilegoodsdpController.php on line 237
+            MobilegoodsdpController.php => categoryproductsAction 新增    if(is_array($tempArr) && !empty($tempArr) && $tempArr[1]) 判断
+
+2、	15:15:10> [2015-10-29 15:15:10] 	/mobilegoodsdp/createorder	1366	Incorrect string value: '\xF0\x9F\x98\x84' for column 'value' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_order_set_data` (`set_id`,`order_id`,`userid`,`value`,`create_time`) VALUES ('42','165905','107807','😄','1446102910')
+            MobilegoodsdpController.php => createorderAction 新增  $data_order['consignee_name'] = LogEditVerificationLTApi::dealBeforeInSql($data_order['consignee_name']);
+                                                                    验证
+
+########################################################################################################################
+2015-11-2
+************************************************************************************************************************
+修改：
+1、	10:30:28> [2015-10-30 10:30:28] 	/mobilegoodsdp/productattrs	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND orders.userid=3848 AND orders.openid=12562433 AND (orders.order_status=1 OR ' at line 1		错误的SQL语句:[weixin2014] SELECT sum(mgt.count_num) as had_buy_total FROM wx_goods_order_mgt AS mgt  LEFT JOIN wx_order AS orders ON mgt.order_id  = orders.id WHERE mgt.goods_id= AND orders.userid=3848 AND orders.openid=12562433 AND (orders.order_status=1 OR orders.order_status=2)
+            MobilegoodsdpController.php => productattrsAction：新增判断                  if(!empty($goods_id)) {
+                                                                                            ...
+                                                                                        }else{
+                                                                                            $num = 0;
+                                                                                        }
+2、	09:47:28> [2015-10-31 09:47:28] 	/wmall/addgoods	1366	Incorrect string value: '\xF0\x9F\x98\x8A\xE8\xBF...' for column 'introduction' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_goods` (`userid`,`cid`,`types`,`name`,`pic_id`,`introduction`,`share`,`original_price`,`present_price`,`is_virtua`,`coupon_id`,`stock`,`finish_status`,`cdate`,`udate`,`labelid`,`sort`,`is_integral`,`unit`) VALUES ('160143','34118','1','两面针牙膏套装800g','81692871','特别商品，在折扣基础上送价值60元绮梦872高档牙刷6支！！！😊还包邮哦','','109','109','2','0','1000','3','1446256048','1446256048','0','0','0','套')
+            wmallController.php => addgoodsAction：新增判断          if(!empty($data ['introduction'])){
+                                                                        $data ['introduction'] = LogEditVerificationLTApi::dealBeforeInSql($data ['introduction']);
+                                                                    }
+
+3、13:38:03> [2015-10-31 13:38:03] 	/wmall/addgoods?type=edit&id=134227	1054	Unknown column 'undefined' in 'where clause'	type=edit&id=134227	错误的SQL语句:[weixin2014] SELECT id,name FROM wx_goods WHERE id in (131376,undefined,131468) and userid = 132530
+            wmallController.php => addgoodsAction：新增判断                  if (... && !is_numeric($relatedIdEl)) {
+                                                                                ...
+                                                                            }
+
+4、	16:59:04> [2015-11-01 16:59:04] 	/Mobilegoodsdp/calculatepostage	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit 1' at line 1		错误的SQL语句:[weixin2014] select  * from wx_goods where id= limit 1
+            MobilegoodsdpController.php => calculatepostageAction：新增判断          if(!empty($goodsid)) {
+                                                                                        ...
+                                                                                    }else{
+                                                                                        $zongjia = 0;
+                                                                                    }
+
+########################################################################################################################
+2015-11-4：升级结束后
+************************************************************************************************************************
+修改：
+1、	15:55:47> [2015-11-03 15:55:47] 	/wgroupbuy/addgoods	1406	Data too long for column 'desc' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_goods_tg_mgt` (`userid`,`goods_id`,`initial_number`,`refund_expire`,`refund_alltime`,`is_app`,`show_time`,`coupon_start_time`,`coupon_end_time`,`coupon_use_start_time`,`coupon_use_end_time`,`desc`,`notes_use`) VALUES ('153700','188968','3','1','0','0','2','1447257600','1447344000','08:00','18:00','<p style=\"margin-top:0px;margin-bottom:0px;padding:0px;max-width:100%;clear:both;min-height:1em;white-space:pre-wrap;color:#3E3E3E;font-family:\'Helvetica Neue\', Helvetica, \'Hiragino Sans GB\', \'Microsoft YaHei\', Arial, sans-serif;font-size:16px;line-height:25px;background-color:#FFFFFF;box-sizing:border-box !important;\">
+            wgroupbuyController.php => addgoodsAction:新增判断          $data_tg ['desc'] = LogEditVerificationLTApi::dealBeforeInSql($data_tg ['desc']);
+                                                                       if (!empty($data_tg ['desc']) && mb_strlen($data_tg ['desc'], 'utf-8') > 30000) {
+                                                                           echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+                                                                           echo '<script>alert("商品描述超过限制，请重新输入");</script>';
+                                                                           echo '<script> window.history.back(-1);</script>';
+                                                                           exit;
+                                                                       }
+            wgroupbuy/add_goods.tpl:新增判断          var desc = $("#editor_id").val();
+                                                     if(desc.length > 30000){
+                                                         alert("商品描述超过限制，请重新输入！");
+                                                         return false;
+                                                     }
+
+########################################################################################################################
+2015-11-5
+************************************************************************************************************************
+修改：
+1、	[04-Nov-2015 17:23:28 Asia/Shanghai] PHP Warning:  Invalid argument supplied for foreach() in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/MobilegoodsdpController.php on line 3541
+            MobilegoodsdpController.php => cartaccountAction:新增判断    if(!empty($cart_list)) {
+                                                                             foreach ($cart_list as $key => $val) {
+                                                                                 if(!empty($array_key)) {
+                                                                                     foreach ($array_key as $k => $item) {
+                                                                                         ...
+                                                                                     }
+                                                                                 }
+                                                                             }
+                                                                         }
+
+2、	19:03:46> [2015-11-04 19:03:46] 	/mobilegoodsdp/daifusuccess?daifu_id=171726	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit 1' at line 1	daifu_id=171726	错误的SQL语句:[weixin2014] select  id from wx_order where order_no= limit 1
+
+  	19:03:47> [2015-11-04 19:03:47] 	/mobilegoodsdp/daifusuccess?daifu_id=171726	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1	daifu_id=171726	错误的SQL语句:[weixin2014] select g.*,d.pic_id,d.name from wx_goods_order_mgt g,wx_goods d where g.goods_id=d.id and order_id=
+
+  	19:03:47> [2015-11-04 19:03:47] 	/mobilegoodsdp/daifusuccess?daifu_id=171726	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit 1' at line 1	daifu_id=171726	错误的SQL语句:[weixin2014] select  * from wx_order  where userid=12172 and id=  limit 1
+            MobilegoodsdpController.php => daifusuccessAction：新增判断  if(!empty($data_array) && isset($data_array['main_order_no']) && !empty($data_array['main_order_no'])) {
+                                                                              ...
+                                                                          }else{
+                                                                              $fxuserid = base64_encode(PubFun::encrypt($_SESSION['clubdata']['userid'], 'E'));;
+                                                                              echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+                                                                              echo '<script>alert("找不到订单！");</script>';
+                                                                              echo '<script> window.history.href = "/mobilegoodsdp/index?fxuserid='. $fxuserid .'";</script>';
+                                                                          }
+
+########################################################################################################################
+2015-11-5
+************************************************************************************************************************
+修改：未测试
+1、	11:19:11> [2015-11-06 11:19:11] 	/shop/showgoodsorderdetail?isOperate=1&from_type=2&order_id=37073&is_vir=0	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and status = 1 limit 1' at line 1	isOperate=1&from_type=2&order_id=37073&is_vir=0	错误的SQL语句:[weixin2014] select  express_no,company from wx_order_logistics where order_id =  and status = 1 limit 1
+
+  	11:19:11> [2015-11-06 11:19:11] 	/shop/showgoodsorderdetail?isOperate=1&from_type=2&order_id=37073&is_vir=0	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and order_id =  and goods_id = 41467 and goods_attr_id = 47617 limit 1' at line 1	isOperate=1&from_type=2&order_id=37073&is_vir=0	错误的SQL语句:[weixin2014] select  status from wx_order_return where userid = 162627 and openid =  and order_id =  and goods_id = 41467 and goods_attr_id = 47617 limit 1
+            wmall/shopController.php => showgoodsorderdetailAction => GoodsOrder => showgoodsorderdetail
+            新增判断：  if(!empty($order_info['id'])) {
+                           ...
+                        }
+                        if(!empty($order_info)){
+                            if(empty($order_info['id'])){
+                                $order_info['id'] = $id;
+                            }
+                        }
+                        if(!empty($order_info['openid']) && !empty($order_info['id'])) {
+                             ...
+                        }
+
+2、	23:46:15> [2015-11-06 23:46:15] 	/wmall/addgoods?type=edit&id=193222	1264	Out of range value for column 'stock' at row 1	type=edit&id=193222	错误的SQL语句:[weixin2014] UPDATE `wx_goods` SET  `userid`='164798', `cid`='36208', `name`='虾丸', `pic_id`='82518687', `introduction`='虾丸', `share`='', `original_price`='3.00', `present_price`='1.60', `is_virtua`='2', `coupon_id`='0', `stock`='100000000000', `finish_status`='3', `udate`='1446824775', `labelid`='1924', `sort`='0', `is_integral`='0', `unit`='份' WHERE id = 193222
+
+  	23:46:15> [2015-11-06 23:46:15] 	/wmall/addgoods?type=edit&id=193222	1264	Out of range value for column 'number' at row 1	type=edit&id=193222	错误的SQL语句:[weixin2014] INSERT INTO `wx_goods_attr_detail` (`goods_id`,`userid`,`attribute_ids`,`number`,`price`,`original_price`,`cdate`) VALUES ('193222','164798','49167:49393','100000000000','1.6','3','1446824775')
+
+    wmallController.php => addgoodsAction 新增判断：                     if(!empty($attr ['number']) && $attr ['number'] > 2147483647){
+                                                                               echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+                                                                               echo '<script>alert("商品数量超过限制！");</script>';
+                                                                               echo '<script> window.history.back(-1);</script>';
+                                                                               exit;
+                                                                           }
+                                          修改判断：         if(!empty($data ['stock']) && $data ['stock'] > 2147483647){
+                                                                ...
+                                                            }
+    shop/wmall都改
+
+
+########################################################################################################################
+2015-11-5
+************************************************************************************************************************
+修改：
+1、	13:43:19> [2015-11-09 13:43:19] 	/wmall/addgoods	1366	Incorrect string value: '\xF0\x9F\x92\xA5\xF0\x9F...' for column 'name' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_goods` (`userid`,`cid`,`types`,`name`,`pic_id`,`introduction`,`share`,`original_price`,`present_price`,`is_virtua`,`coupon_id`,`stock`,`finish_status`,`cdate`,`udate`,`labelid`,`sort`,`is_integral`,`unit`) VALUES ('156715','34112','1','💥💥💥真毛袖','82810227','真毛袖','💥💥💥真毛袖','265','265','2','0','50','3','1447047799','1447047799','0','0','0','件')
+           shop/wmallController.php => addgoodsAction 新增字符处理：    $data_dp['name'] = ToolString::filter_emoji($data_dp['name']);
+
+########################################################################################################################
+2015-11-12
+************************************************************************************************************************
+修改：
+1、	11:16:24> [2015-11-11 11:16:24] 	/mobilegoodsorder/orderinfo?id=	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit 1' at line 1	id=	错误的SQL语句:[weixin2014] select  id,from_type,spare_amount,fdate,post_free,order_no,cdate,pay_type,post_status,userid,order_amount,integrall,pay_status,over_time,order_status,remark,come_from,store_id,delivery_time,consignee_name,consignee_tel,province,city,area,address from wx_order where id= limit 1
+            mobilegoodsorderController.php => orderinfoAction 修改：   if(empty($_GET['id']) && empty($_GET['order_no'])){
+                                                                             if (!empty($_SESSION['dp']['fromtype'])) {
+                                                                                 $fromtype = $_SESSION['dp']['fromtype'];
+                                                                             } else {
+                                                                                 $fromtype = 2;
+                                                                             }
+                                                                             $fxuserid = base64_encode(PubFun::encrypt($_SESSION['clubdata']['userid'], 'E'));;
+                                                                             header("Location:/mobilegoodsorder/goodsorderindex?fromtype=".$fromtype."&fxuserid=".$fxuserid);
+                                                                         }
+
+########################################################################################################################
+2015-11-13
+************************************************************************************************************************
+修改：
+1、	15:38:27> [2015-11-12 15:38:27] 	/childwmallorder/order-set-field	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND ( `status` = 1 )' at line 1		错误的SQL语句:[weixin2014] SELECT * FROM `wx_order_set` WHERE ( `userid` =  ) AND ( `status` = 1 )
+
+  	16:24:53> [2015-11-12 16:24:53] 	/childwmallorder/order-refund	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')  limit 1' at line 1		错误的SQL语句:[weixin2014] select  * from wx_order_return_set  WHERE ( `userid` =  )  limit 1
+
+  	21:33:36> [2015-11-12 21:33:36] 	/childgoods/attributeindex	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and pid = 0 and status = 1 order by cdate desc' at line 1		错误的SQL语句:[weixin2014] select id,cname from wx_goods_attribute where userid =  and pid = 0 and status = 1 order by cdate desc
+            ChildgoodsController.php/ChildwmallorderController.php => getParentId() 修改：else内容
+                                                                                    User::doLoginout();
+                                                                                    header("location:/index/minlogin");
+
+########################################################################################################################
+2015-11-16
+************************************************************************************************************************
+修改：
+1、[13-Nov-2015 09:03:39 Asia/Shanghai] PHP Warning:  Division by zero in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/WmallController.php on line 654
+            wmallController.php => cuttingpicturegoodsAction 新增字符处理：$_POST ['reducedwidth'] = trim($_POST ['reducedwidth']);
+
+ ########################################################################################################################
+ 2015-11-16
+ ************************************************************************************************************************
+ 修改：
+1、15:30:05> [2015-11-16 15:30:05] 	/childgoods/attributeindex	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and pid = 0 and status = 1 order by cdate desc' at line 1		错误的SQL语句:[weixin2014] select id,cname from wx_goods_attribute where userid =  and pid = 0 and status = 1 order by cdate desc
+            ChildgoodsController.php => attributeindexAction 新增判断：if(!empty($userid)) {
+                                                                        ...
+                                                                        }
+*此处错误：cdate,两次都是大于，复制是打错，改后要本地测！！！- the person that find out this bug is luoqin*
+2、	13:52:14> [2015-11-17 13:52:14] 	/shop/showgoodsorderlist?search_type=2&from_type1=0&activity1=0&start_time=2015-10-18%2013:52:11&end_time=2015-11-17%2013:52:11&order_no=&order_type=0&order_status1=0&consignee_name=&pay_type=0&come_from=0&consignee_tel=&province=0&goods_id=	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1	search_type=2&from_type1=0&activity1=0&start_time=2015-10-18%2013:52:11&end_time=2015-11-17%2013:52:11&order_no=&order_type=0&order_status1=0&consignee_name=&pay_type=0&come_from=0&consignee_tel=&province=0&goods_id=	错误的SQL语句:[weixin2014] select count(*) as c from wx_order  where userid=107807 and order_status != -1 and cdate>=1445147531 and cdate<=
+            goodsOrder.php => showgoodsorderlist（shop） 新增判断：f (!empty($start_time)) {
+                                                      //                    $where .= " and cdate<=" . strtotime($start_time);
+                                                                          $start_time = strtotime($start_time);
+                                                                          if(!empty($start_time)) {
+                                                                              $where .= " and cdate>=" . $start_time;
+                                                                          }
+                                                                      }
+
+                                                                      if (!empty($end_time)) {
+                                                      //                    $where .= " and cdate<=" . strtotime($end_time);
+                                                                          $end_time = strtotime($end_time);
+                                                                          if(!empty($end_time)) {
+                                                                              $where .= " and cdate>=" . $end_time;
+                                                                          }
+                                                                      }
+
+
+########################################################################################################################
+2015-11-20
+************************************************************************************************************************
+修改：
+1、23:04:30> [2015-11-19 23:04:30] 	/mobilegoodsdp/return-award-url	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'return-award-url HTTP/1.1
+    X-Requested-With: XMLHttpRequest
+    Referer: http://oau' at line 1		错误的SQL语句:[weixin2014] select  is_reward,cdate,pay_status,is_receive from wx_order  where id=196985POST /mobilegoodsdp/return-award-url HTTP/1.1
+            MobilegoodsdpController.php => returnAwardUrlAction 新增判断：if(... && is_numeric($orderId)) {...}
+
+2、	[19-Nov-2015 13:12:33 Asia/Shanghai] PHP Warning:  Invalid argument supplied for foreach() in /data/wwwroot/dodoca/include/GoogsApi.php on line 1884
+            GoogsApi.php => createdaifuorder($username,$desc,$order_amount,$userid,$openid,$orderid)
+                                                新增判断：if(!empty($payment)) {
+                                                            ...
+                                                         }
+
+########################################################################################################################
+2015-11-23
+************************************************************************************************************************
+修改：
+1、	11:26:13> [2015-11-20 11:26:13] 	/wmall/addgoods?type=edit&id=179177	1054	Unknown column 'undefined' in 'where clause'	type=edit&id=179177	错误的SQL语句:[weixin2014] SELECT id,name FROM wx_goods WHERE id in (179111,179076,179023,179003,178883,undefined) and userid = 160055
+            wmallController.php => addgoodsAction 新增判断：if (empty($relatedIdEl) || !is_numeric($relatedIdEl)) {
+                                                                               ...
+                                                                           }
+
+
+########################################################################################################################
+2015-11-25
+************************************************************************************************************************
+修改：
+1、	14:46:09> [2015-11-24 14:46:09] 	/wmall/info	1264	Out of range value for column 'amount' at row 1		错误的SQL语句:[weixin2014] UPDATE `wx_dp_set` SET  `userid`='163808', `type`='1', `phone`='4000781919', `time_limit`='1440', `fan_card_coupon_payment`='0', `is_discount_card_payment`='0', `name`='100留学', `postage`='0.00', `fan_card_point_payment`='1', `amount`='100000000', `share`='100留学开业庆典', `share_content`='申请会员卡，即送200元现金！', `arayacak`='0', `arayacak_content`='', `payment`='0', `minimum_price`='0.00', `payment_time`='10', `free_shipping`='0', `free_shipping_amount`='0', `sms_buyers`='0', `sms_seller`='1', `sms_seller_value`='1', `authorize`='0', `express`='1', `tempid`='0', `is_integral`='0', `integral_arrived`='0', `is_coupon_voucher`='1', `is_coupon_discount`='0', `coupon_discount_limit`='0.00', `is_consumer_rewards`='0', `consumer_rewards`='0.00', `category_ids_str`='0-0' WHERE  id=7632
+            wmallController.php => infoAction 新增判断:     if($model['amount'] >= 100000000){
+                                                                echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'><script type='text/javascript' charset='utf-8'>alert('消费金额超过限制！');</script>";
+                                                                echo "<script type='text/javascript' charset='utf-8'>window.history.back(-1);</script>";
+                                                                exit;
+                                                            }
+
+########################################################################################################################
+2015-11-25
+************************************************************************************************************************
+修改：
+1、	16:37:13> [2015-11-27 16:37:13] 	/fightgroup/fight-group-save	1264	Out of range value for column 'stock' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_fight_group` (`goods_id`,`userid`,`name`,`summary`,`pic_id`,`original_price`,`price`,`initial_number`,`unit`,`stock`,`weight`,`freight`,`desc`,`start_time`,`end_time`,`show_time`,`number`,`limit_number`,`manager`,`success_time`,`discount`,`share_title`,`share_title_id`,`share_pic`,`share_content`,`share_content_id`,`success_notice`,`success_email`,`success_weixin`,`fail_notice`,`fail_email`,`fail_weixin`,`create_time`,`status`,`is_delete`) VALUES ('212535','71139','桃如意','桃如意罐头，新鲜安全，吃得放心！！！','84311884','150.00','110','99','件','26515887415','0','0','桃如意罐头，新鲜安全，吃得放心！！！','1448613927','1451553327','24','5','0','0','0','0','爱拼才会（惠）嬴（盈），尽在全员拼团','5','85445004','快来参加全员拼团桃如意','2','1','','1','1','','1','1448613433','1','1')
+            fightgroupController.php => fightGroupSaveAction 新增判断             if(!empty($data ['stock']) && $data ['stock'] > 2147483647){
+                                                                                      echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+                                                                                      echo '<script>alert("商品数量超过限制！");</script>';
+                                                                                      echo '<script> window.history.back(-1);</script>';
+                                                                                      exit;
+                                                                                  }
+
+########################################################################################################################
+2015-12-3
+************************************************************************************************************************
+修改：svn
+1、	13:44:24> [2015-12-02 13:44:24] 	/wseckill/addgoods?type=add&id=222882	1406	Data too long for column 'show_time' at row 1	type=add&id=222882	错误的SQL语句:[weixin2014] INSERT INTO `wx_goods_ms_mgt` (`userid`,`goods_id`,`initial_number`,`refund_expire`,`refund_alltime`,`is_app`,`id_limit_by`,`show_time`,`coupon_start_time`,`coupon_end_time`,`coupon_use_start_time`,`coupon_use_end_time`,`notes_use`,`desc`) VALUES ('105141','223010','211','0','0','0','1','120000000000000000000000000','1449849600','1450195200','09:00','18:00','<p class=\"MsoNormal\" style=\"white-space:normal;\">
+            wseckillController.php => addgoodsAction 新增判断               if(!empty($data_xs['show_time']) && mb_strlen($data_xs['desc'], 'utf-8') >= 10){
+            限时同样                                                            echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+                                                                                echo '<script>alert("商品展示时间长度超过限制！");</script>';
+                                                                                echo '<script> window.history.back(-1);</script>';
+                                                                                exit;
+                                                                            }
+
+########################################################################################################################
+2015-12-4
+************************************************************************************************************************
+修改：svn
+1、	16:03:48> [2015-12-03 16:03:48] 	/147473/mobilegoodsdp/categoryproducts?fxuserid=dzhNRUNOckx5czdKWDNEWWZVMA==&cid=40772?source=1	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?source=1 limit 1' at line 1	fxuserid=dzhNRUNOckx5czdKWDNEWWZVMA==&cid=40772?source=1	错误的SQL语句:[weixin2014] select  * from wx_dp_category where userid = 147473 and status=1 AND id= 40772?source=1 limit 1
+            mobilegoodsdpController.php => categoryproductsAction 新增判断   if(... && is_numeric($cid)){...}
+
+2、	16:03:48> [2015-12-03 16:03:48] 	/147473/mobilegoodsdp/categoryproducts?fxuserid=dzhNRUNOckx5czdKWDNEWWZVMA==&cid=40772?source=1	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?source=1 limit 1' at line 1	fxuserid=dzhNRUNOckx5czdKWDNEWWZVMA==&cid=40772?source=1	错误的SQL语句:[weixin2014] select  * from wx_dp_category where userid = 147473 and status=1 AND id= 40772?source=1 limit 1
+            mobilegoodsdpController.php => ajaxLoadProdAction  新增判断     if(... ($cid && is_numeric($cid))){...}
+
+
+########################################################################################################################
+2015-12-7
+************************************************************************************************************************
+修改：svn
+1、	10:39:52> [2015-12-05 10:39:52] 	/shop/addgoodsdp	1366	Incorrect string value: '\xF0\x9F\x8E\x80el...' for column 'name' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_goods` (`userid`,`cid`,`types`,`name`,`pic_id`,`introduction`,`share`,`original_price`,`present_price`,`is_virtua`,`coupon_id`,`stock`,`finish_status`,`cdate`,`udate`,`labelid`,`is_integral`,`unit`,`weight`) VALUES ('171650','40304','1','泰国??ele睡眠面膜','87327426','一抹就开，晚上睡前抹抹，早上嫩嫩的?，滑滑的?，水水滴?，一整天都水嫩嫩.','泰国??ele睡眠面膜','160','160','2','0','1000','3','1449283192','1449283192','0','0','件','0')
+    13:47:45> [2015-12-06 13:47:45] 	/mobilegoodsdp/createorder	1366	Incorrect string value: '\xF0\xA6\xAD\x90' for column 'consignee_name' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_order` (`order_no`,`total_amount`,`order_amount`,`from_type`,`pay_type`,`pay_status`,`cdate`,`userid`,`openid`,`spread_userid`,`remark`,`over_time`,`order_status`,`integrall`,`integrall_sum`,`is_receive`,`consignee_name`,`consignee_tel`,`province`,`city`,`area`,`address`,`store_id`,`delivery_time`,`post_free`,`come_from`) VALUES ('069749551050','1','1','2','10','0','1449380865','144083','23000882','0','','1449467265','1','0.00','0','1','林喜??','13702816139','','','','','183','1449384360','0','1')
+	13:47:45> [2015-12-06 13:47:45] 	/mobilegoodsdp/createorder	1366	Incorrect string value: '\xF0\xA6\xAD\x90' for column 'name' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_order_shipping_address` (`name`,`phone`,`cdate`,`userid`,`openid`,`is_virtua`) VALUES ('林喜??','13702816139','1449380865','144083','23000882','1')
+            mobilegoodsdpController.php => createorderAction    新增判断    $data_order['consignee_name'] = LogEditVerificationLTApi::dealBeforeInSql($data_order['consignee_name']);
+                                                                            $tmp_address['name'] = LogEditVerificationLTApi::dealBeforeInSql($tmp_address['name']);
+
+            shopController.php => addgoodsdpAction  新增判断    $data['name'] = LogEditVerificationLTApi::dealBeforeInSql($data['name']);
+
+2、	12:02:50> [2015-12-03 12:02:50] 	/mobilegoodsorder/orderinfo?id=	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit 1' at line 1	id=	错误的SQL语句:[weixin2014] select  id,from_type,spare_amount,fdate,post_free,order_no,cdate,pay_type,post_status,userid,order_amount,integrall,pay_status,over_time,order_status,remark,come_from,store_id,delivery_time,consignee_name,consignee_tel,province,city,area,address from wx_order where id= limit 1
+            mobilegoodsorderController.php => orderinfoAction   新增判断     if(!empty($id)) {
+                                                                                    ...
+                                                                                }else{
+                                                                                    $oinfo = array();
+                                                                                }
+
+########################################################################################################################
+2015-12-10
+************************************************************************************************************************
+修改：svn
+1、	17:14:23> [2015-12-07 17:14:23] 	/wmall/addgoods?type=edit&id=226331	1264	Out of range value for column 'initial_number' at row 1	type=edit&id=226331	错误的SQL语句:[weixin2014] UPDATE `wx_goods_dp_mgt` SET  `showcase`='2', `notes_use`='', `desc`='<img src=\"http://p.dodoca.com/org/9/c4/6ea/b625/f2c7ec6cda0f5107f8aa32.jpg\" alt=\"\" /><img src=\"http://p.dodoca.com/org/f/54/26e/25e2/3d56bd8ea8ecfd49adf2b7.jpg\" alt=\"\" /><img src=\"http://p.dodoca.com/org/e/03/229/3d69/1de5b14e52e57cc5d7df9c.jpg\" alt=\"\" /><img src=\"http://p.dodoca.com/org/9/c0/6d5/75f9/c06aee5c7aa23d362bc8c2.jpg\" alt=\"\" /><img src=\"http://p.dodoca.com/org/6/2b/51e/4bdc/a094e6463be3a9ed154710.jpg\" alt=\"\" /><img src=\"http://p.dodoca.com/org/5/6f/41f/ecc3/2540152bc6507fa7922176.jpg\" alt=\"\" /><img src=\"http://p.dodoca.com/org/d/d8/4d4/8ac1/527cf71f01d4d35a8f0b78.jpg\" alt=\"\" /><img src=\"http://p.dodoca.com/org/f/3e/795/aa73/9a4d18934b42e4bedefb78.jpg\" alt=\"\" />', `is_outside`='0', `hid_link_url`='', `initial_number`='3000000000', `is_related`='0', `related_ids`='', `limit_number`='0' WHERE goods_id = 226331
+             shopController.php => addgoodsdpAction 新增判断            if (!empty($data_dp ['initial_number']) && $data_dp ['initial_number'] > 2147483647) {
+                                                                            echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+             wmall相同                                                      echo '<script>alert("初始购买数量超过限制！");</script>';
+                                                                            echo '<script> window.history.back(-1);</script>';
+                                                                            exit;
+                                                                        }
+
+2、	[08-Dec-2015 11:27:48 Asia/Shanghai] PHP Warning:  Division by zero in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/WmallController.php on line 664
+              wmallController.php => addgoodsAction 新增判断  if (... && is_numeric($_POST ['reducedwidth'])) {...}
+
+########################################################################################################################
+2015-12-14
+************************************************************************************************************************
+修改：svn
+1、	16:16:02> [2015-12-12 16:16:02] 	/$data4['name'] = LogEditVerificationLTApi::dealBeforeInSql($data4['name']);/msorder	1366	Incorrect string value: '\xF0\x9F\x83\x8F' for column 'consignee_name' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_order` (`order_no`,`total_amount`,`order_amount`,`from_type`,`pay_type`,`pay_status`,`cdate`,`userid`,`openid`,`remark`,`over_time`,`order_status`,`bargain_id`,`consignee_name`,`consignee_tel`,`store_id`,`come_from`) VALUES ('124556252403','0.1','0.1','5','10','0','1449908162','166226','23011672','','1449909962','1','10791','🃏','13616646830','0','0')
+
+  	16:16:02> [2015-12-12 16:16:02] 	/mobilegoodsms/msorder	1366	Incorrect string value: '\xF0\x9F\x83\x8F' for column 'name' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_order_shipping_address` (`name`,`phone`,`cdate`,`userid`,`openid`) VALUES ('🃏','13616646830','1449908162','166226','23011672')
+
+  	16:16:02> [2015-12-12 16:16:02] 	/mobilegoodsms/msorder	1062	Duplicate entry '0' for key 'orderid_index'		错误的SQL语句:[weixin2014] INSERT INTO `wx_order_logistics` (`order_id`,`post_id`,`cdate`) VALUES ('0','0','1449908162')
+             mobilegoodsmsController.php => msorderAction 新增判断 $data4['name'] = LogEditVerificationLTApi::dealBeforeInSql($data4['name']);
+                                                                    $data['consignee_name'] = LogEditVerificationLTApi::dealBeforeInSql($data['consignee_name']);
+
+2、	10:29:33> [2015-12-13 10:29:33] 	/mobilecomment/mobilesetcomment	1366	Incorrect string value: '\xF0\x9F\x98\x81' for column 'content' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_comment_client` (`user_id`,`order_id`,`order_no`,`comment_type`,`content`,`openid`,`levels`,`goods_name`,`goods_id`,`specification`,`specification_id`,`goods_number`,`is_show`,`cdate`,`is_delete`) VALUES ('145193','227796','102862827072','1','双十二这个价格好喜欢 😁','22998136','5','金银花蜜Rewarewa 500g','182599','500g','161260','1','0','1449973773','0')
+             mobilecommentController.php => mobilesetcommentAction 新增判断 $data['content'] = LogEditVerificationLTApi::dealBeforeInSql($data['content']);
+
+########################################################################################################################
+2015-12-23
+************************************************************************************************************************
+修改：svn
+1、	[22-Dec-2015 10:12:21 Asia/Shanghai] PHP Warning:  deg2rad() expects parameter 1 to be double, string given in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/MobilegoodsdpController.php on line 5352
+            mobilegoodsmdpController.php => getDistance 新增判断        //将字符串转换成double型
+                                                                        $lat1 = doubleval($lat1);
+                                                                        $lat2 = doubleval($lat2);
+                                                                        $lng1 = doubleval($lng1);
+                                                                        $lng2 = doubleval($lng2);
+
+2、	17:21:40> [2015-12-22 17:21:40] 	/wmall/addgoods	1366	Incorrect string value: '\xF0\x9F\x8F\xBB\xE5\xBF...' for column 'share' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_goods` (`userid`,`cid`,`types`,`name`,`pic_id`,`introduction`,`share`,`original_price`,`present_price`,`is_virtua`,`coupon_id`,`stock`,`finish_status`,`cdate`,`udate`,`labelid`,`sort`,`is_integral`,`unit`,`weight`) VALUES ('156715','32956','1','圣诞节必备，彩虹毛衣','91001349','圣诞节必备，彩虹毛衣','圣诞节🏻必备，彩虹毛衣','135','135','2','0','50','3','1450776100','1450776100','0','0','0','件','0')
+            wmallController.php => addgoodsAction 新增判断   $data['share'] = ToolString::filter_emoji($data['share']);
+
+
+3、	19:30:23> [2015-12-22 19:30:23] 	/Mobilegoodsdp/calculatepostage	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit 1' at line 1		错误的SQL语句:[weixin2014] select  weight from wx_goods  WHERE id =  limit 1
+            mobilegoodsmdpController.php => calculatepostageAction  新增判断        if(!empty($goodsWeightdata['goodsid'])) {
+                                                                                         ...
+                                                                                     }else{
+                                                                                         $res = $dpinfor['postage'];
+                                                                                     }
+
+########################################################################################################################
+2015-12-25
+************************************************************************************************************************
+修改：svn
+1、[24-Dec-2015 11:00:49 Asia/Shanghai] PHP Fatal error:  Call to a member function close() on a non-object in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/WmallController.php on line 584
+             wmallController.php => infoAction  更改                $fancard->close();
+                                                                    unset($fancard);
+
+########################################################################################################################
+2015-1-8
+************************************************************************************************************************
+	15:02:49> [2016-01-07 15:02:49] 	/mobilegoodsdp/daifucreateorder	1366	Incorrect string value: '\xF0\x9F\x98\x81' for column 'desc' at row 1		错误的SQL语句:[weixin2014] INSERT INTO `wx_order_shipping_address` (`name`,`userid`,`openid`,`is_virtua`,`desc`) VALUES ('郁林飞雁','162471','22950465','1','??')
+            mobilegoodsdpController.php => daifucreateorderAction 添加表情判断
+
+########################################################################################################################
+2015-1-11
+************************************************************************************************************************
+	14:40:57> [2016-01-08 14:40:57] 	/mobilegoodsdp/order-return-handle?orderid=&goodid=&attrid=	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and goods_id =  limit 1' at line 1	orderid=&goodid=&attrid=	错误的SQL语句:[weixin2014] select  unit_price,count_num from wx_goods_order_mgt where order_id =  and goods_id =  limit 1
+            mobilegoodsdpController.php => orderReturnHandleAction 新增跳转判断if(empty($orderid) || empty($goodid))
+                                                                                 {
+                                                                                     if (!empty($_SESSION['dp']['fromtype'])) {
+                                                                                         $fromtype = $_SESSION['dp']['fromtype'];
+                                                                                     } else {
+                                                                                         $fromtype = 2;
+                                                                                     }
+                                                                                     $fxuserid = base64_encode(PubFun::encrypt($userid, 'E'));;
+                                                                                     header("Location:mobilegoodsorder/mobilegoodslists?fromtype=" . $fromtype . "&fxuserid=" . $fxuserid);
+                                                                                 }
+
+########################################################################################################################
+2015-1-14
+************************************************************************************************************************
+1、慢日志SELECT sum(a.count_num) as nums FROM wx_goods_order_mgt  AS a
+     							 INNER JOIN wx_order AS b ON b.id=a.order_id
+     							 WHERE b.userid='12172' AND b.pay_status=1
+     							 AND b.from_type='2' AND a.goods_id='133594';
+
+   GoogsApi.php => attrgoodsnumbersoldAction 修改：去掉引号，对变量intval
+
+2、[13-Jan-2016 16:40:02 Asia/Shanghai] PHP Warning:  getimagesize() [<a href='function.getimagesize'>function.getimagesize</a>]: Filename cannot be empty in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/WmallController.php on line 670
+  [13-Jan-2016 16:40:02 Asia/Shanghai] PHP Warning:  getimagesize() [<a href='function.getimagesize'>function.getimagesize</a>]: Filename cannot be empty in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/WmallController.php on line 981
+    wmallController.php => cuttingpicturegoodsAction 新增判断  if(empty($picdata)){
+                                                                      echo 0;
+                                                                  }
+                            getimageinfoAction 新增判断  if(empty($img)){
+                                                                return false;
+                                                            }
+
+########################################################################################################################
+2015-1-15
+************************************************************************************************************************
+1、[14-Jan-2016 19:12:26 Asia/Shanghai] PHP Warning:  readfile(null) [<a href='function.readfile'>function.readfile</a>]: failed to open stream: No such file or directory in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/WmallController.php on line 3079
+     wmallController.php => GrabImage 新增判断 if(empty($url)){
+                                                       return false;
+                                                   }
+
+########################################################################################################################
+2015-1-18
+************************************************************************************************************************
+1、	10:11:28> [2016-01-15 10:11:28] 	/shop/order-refund-list?status=&search=%22%09103146061886%22	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '103146061886"%") OR ( name like "%"	103146061886"%")  OR ( phone like "%"	103146' at line 1	status=&search=%22%09103146061886%22	错误的SQL语句:[weixin2014] select   COUNT(id) AS TNUM from wx_order_return  WHERE ( (order_no like "%"	103146061886"%") OR ( name like "%"	103146061886"%")  OR ( phone like "%"	103146061886"%") ) AND ( `userid` = 182225 )  limit 1
+    WxOrderReturn.php => orderResultList 新增字符处理  //字符串处理-litian-log错误修改
+                                                                    $search = LogEditVerificationLTApi::dealBeforeInSql($search);//去首尾空字符、单引号、表情
+                                                                    if(strstr($search, '"')){
+                                                                        $search = str_replace('"', '', $search);//去掉双引号
+                                                                        $search = trim($search);//去首尾空字符
+                                                                    }
+
+2、没到线上（测试环境）	[16-Jan-2016 20:47:21 Asia/Shanghai] PHP Warning:  Division by zero in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/MobilegoodsdpController.php on line 4835
+    mobilegoodsdpController.php => orderReturnAction 新增判断 //litian-log修改
+                                                                 if(!empty($totalGoodsPice) || !empty($odrerData['post_free'])) {
+                                                                     $data['amount'] = $odrerData["order_amount"] * $currenyGoodsPice / ($totalGoodsPice + $odrerData["post_free"]);
+                                                                 }else{
+                                                                     $data['amount'] = $odrerData["order_amount"];
+                                                                 }
+
+3、没到线上（测试环境）	18:02:44> [2016-01-15 18:02:44] 	/mobilegoodsdp/updateorder	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1		错误的SQL语句:[weixin2014] UPDATE `wx_order` SET  `remark`='帮人家买个单啦，么么哒！', `daifu_mode`='1' WHERE  id=
+    mobilegoodsdpController.php => updateorderAction 新增判断    if(!empty($_POST['orderid'])) {...}
+
+########################################################################################################################
+2015-1-21
+************************************************************************************************************************
+1、没上传到svn	16:31:51> [2016-01-20 16:31:51] 	/user/changeprovince	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1		错误的SQL语句:[weixin2014] select area_id,area_name from wx_areas where parent_id=
+    userController.php => changeprovinceAction  新增判断    if(isset($_POST['area_id']) && !empty($_POST['area_id'])) {
+                                                                    $area_id = $_POST['area_id'];
+                                                                    ...
+                                                                }else{
+                                                                    $city = '';
+                                                                }
+
+########################################################################################################################
+2015-1-25
+************************************************************************************************************************
+1、[22-Jan-2016 21:18:51 Asia/Shanghai] PHP Warning:  readfile(http://p.dodoca.com/org/2/df/7fb/4ffd/e3c09a8c4d61e56a32f4e9.jpg) [<a href='function.readfile'>function.readfile</a>]: failed to open stream: HTTP request failed!  in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/FightgroupController.php on line 1644
+  [22-Jan-2016 21:18:51 Asia/Shanghai] PHP Warning:  getimagesize() [<a href='function.getimagesize'>function.getimagesize</a>]: Filename cannot be empty in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/FightgroupController.php on line 1597
+  [22-Jan-2016 21:18:51 Asia/Shanghai] PHP Warning:  getimagesize() [<a href='function.getimagesize'>function.getimagesize</a>]: Filename cannot be empty in /data/wwwroot/dodoca/weixin/wx_2.0/controllers/FightgroupController.php on line 1789
+    FightgroupController.php => getimageinfoAction 新增判断 if(!empty($img)) {
+                                                                    ...
+                                                                }else{
+                                                                    return false;
+                                                                }
+
+                                cuttingpictureAction    新增判断    if(!empty($picdata)) {
+                                                                            ...
+                                                                        }else{
+                                                                            $data = array('code' => 0, 'msg' => '参数错误');
+                                                                            $this->ajaxReturn($data);
+                                                                        }
+
+########################################################################################################################
+2015-1-26
+************************************************************************************************************************
+1、15:41:49> [2016-01-25 15:41:49] 	/shop/addgoodsdp?type=edit&id=276285\	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\ and userid = 179663 limit 1' at line 1	type=edit&id=276285\	错误的SQL语句:[weixin2014] select  related_ids from wx_goods_dp_mgt where goods_id =276285\ and userid = 179663 limit 1
+        shop || wmall addgoods 新增 intval($GET['id'])
+
+########################################################################################################################
+2015-2-2
+************************************************************************************************************************
+shop || wmall || mobilegoodsdp
+
+########################################################################################################################
+2015-2-15 svn明天上传
+************************************************************************************************************************
+shop setbanner1inkAction showgoodsorderlist showgoodsorderdetail coupon export waybillUpdateAction
+
+wmall setbanner1inkAction showgoodsorderlist showgoodsorderdetail coupon export waybillUpdateAction
+
+mobilegoodsdp productdetails orderReturnHandleAction
+
+wseckill showgoodsorderdetailAction
+
+########################################################################################################################
+2015-2-22 svn明天上传 -23
+************************************************************************************************************************
+MobilegoodsdpController
+
+WmallController
+
+WgroupbuyController
+
+WxgoodsordermsController
+
+WseckillController
+
+WsaleController
+
+ShopController
+
+########################################################################################################################
+2015-2-24 svn明天上传 -29
+************************************************************************************************************************
+ShopController
+
+WmallController
+
+WlimitController
+
+WgroupbuyController
+
+MobilegoodsorderController
+
+WseckillController
+
+MobilegoodsdpController
+
+MobilefightgroupController
+
+MobileorderfightgroupsController
+
+########################################################################################################################
+2015-3-1
+************************************************************************************************************************
+MobilegoodsorderController
+
+WmallController
+
+MobilegoodsxsController
